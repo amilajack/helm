@@ -11,11 +11,12 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
-          cache-dependency-path: web/package-lock.json
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
       - uses: actions/cache@v4
         with:
           path: .toolchains
@@ -25,12 +26,12 @@ jobs:
       - name: Review source inventory
         run: python3 web/scripts/feature-inventory.py
       - name: Install browser test tools
-        working-directory: web
         run: |
-          npm ci
-          npx playwright install chrome
+          pnpm install --frozen-lockfile
+          pnpm typecheck
+          pnpm --dir web exec playwright install chrome
       - name: Browser workflows and real AudioWorklet
-        run: npm --prefix web test
+        run: pnpm test:browser
       - name: Native and Wasm DSP parity
         shell: bash
         run: |
@@ -44,7 +45,7 @@ jobs:
       - name: Package versioned static distribution and source
         run: python3 web/scripts/package-static.py
       - name: Verify packaged assets, source and live audio
-        run: HELM_TEST_DISTRIBUTION=1 npm --prefix web test
+        run: pnpm test:distribution
       - uses: actions/upload-artifact@v4
         with:
           name: Helm-browser

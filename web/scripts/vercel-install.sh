@@ -6,3 +6,8 @@ if ! command -v cmake >/dev/null || ! command -v python3 >/dev/null; then
 fi
 cmake --version
 python3 --version
+if command -v pnpm >/dev/null; then
+  pnpm install --frozen-lockfile
+else
+  npx --yes pnpm@12.14.0 install --frozen-lockfile
+fi

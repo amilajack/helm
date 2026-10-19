@@ -17,5 +17,10 @@ if [[ $(git rev-parse --show-toplevel 2>/dev/null || true) != "$root" ]]; then
 fi
 
 python3 web/scripts/feature-inventory.py
+if command -v pnpm >/dev/null; then
+  pnpm typecheck
+else
+  npx --yes pnpm@12.14.0 typecheck
+fi
 HELM_BUILD_JOBS=${HELM_BUILD_JOBS:-2} bash web/scripts/build.sh
 python3 web/scripts/package-static.py

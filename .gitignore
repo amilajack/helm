@@ -31,6 +31,7 @@ Release
 
 .toolchains/
 web/node_modules/
+node_modules/
 web/test-results/
 web/playwright-report/
 

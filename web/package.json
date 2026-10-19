@@ -1,6 +1,6 @@
 {
-  "name": "helm-browser-tests",
+  "name": "@helm/browser",
   "private": true,
-  "scripts": {"test": "playwright test"},
-  "devDependencies": {"@playwright/test": "1.63.0"}
+  "scripts": {"test": "playwright test", "typecheck": "tsc --noEmit"},
+  "devDependencies": {"@playwright/test": "1.63.0", "typescript": "7.0.2"}
 }

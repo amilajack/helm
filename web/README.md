@@ -72,8 +72,9 @@ need device-level checks; headless tests do not establish those results.
 Use installed stable Google Chrome, matching the reference migration:
 
 ```sh
-npm ci --prefix web
-npm --prefix web test
+pnpm install --frozen-lockfile
+pnpm typecheck
+pnpm test:browser
 python3 web/scripts/feature-inventory.py
 
 cmake -S . -B build/dsp-native -DHELM_DSP_PARITY_ONLY=ON -DCMAKE_BUILD_TYPE=Release
@@ -101,7 +102,8 @@ inventory with `python3 web/scripts/feature-inventory.py --update`.
 Import `amilajack/helm` with the repository root as the Root Directory and
 Framework Preset **Other**. The root `vercel.json` installs CMake/Python when
 needed, builds the pinned Emscripten target, and publishes `build/web-dist`.
-No application secrets or JavaScript dependency installation are required.
+The browser workspace uses pnpm 12.14.0 and TypeScript 7.0.2. The install
+command uses the frozen workspace lockfile; no application secrets are required.
 The project supplies isolation headers on every route and immutable caching
 for content-addressed assets. Pushes to the connected production branch deploy
 automatically; other branches receive preview deployments.
@@ -115,7 +117,7 @@ files and Vercel account metadata are excluded from uploads and source archives.
 
 ```sh
 python3 web/scripts/package-static.py
-HELM_TEST_DISTRIBUTION=1 npm --prefix web test
+pnpm test:distribution
 python3 web/scripts/serve.py --directory build/web-dist
 ```
 
