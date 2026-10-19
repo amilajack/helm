@@ -25,7 +25,7 @@
 #include "shaders.h"
 #include "synth_gui_interface.h"
 
-#if JUCE_MAJOR_VERSION >= 6
+#if JUCE_MAJOR_VERSION >= 6 && !JUCE_WASM
 using namespace juce::gl;
 #endif
 
@@ -132,6 +132,10 @@ OpenGLModulationManager::~OpenGLModulationManager() {
 }
 
 void OpenGLModulationManager::paint(Graphics& g) {
+#if JUCE_WASM
+  for (auto& meter : meter_lookup_)
+    meter.second->setVisible(meter.second->isModulated() && slider_model_lookup_[meter.first]->isVisible());
+#endif
 }
 
 void OpenGLModulationManager::resized() {
@@ -204,6 +208,7 @@ void OpenGLModulationManager::modulationDisconnected(mopo::ModulationConnection*
 }
 
 void OpenGLModulationManager::init(OpenGLContext& open_gl_context) {
+#if !JUCE_WASM
   open_gl_context.extensions.glGenBuffers(1, &vertex_buffer_);
   open_gl_context.extensions.glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_);
 
@@ -233,9 +238,11 @@ void OpenGLModulationManager::init(OpenGLContext& open_gl_context) {
     range_ = new OpenGLShaderProgram::Attribute(*shader_, "range");
     radius_uniform_ = new OpenGLShaderProgram::Uniform(*shader_, "radius");
   }
+#endif
 }
 
 void OpenGLModulationManager::render(OpenGLContext& open_gl_context, bool animate) {
+#if !JUCE_WASM
   if (!animate)
     return;
 
@@ -293,9 +300,11 @@ void OpenGLModulationManager::render(OpenGLContext& open_gl_context, bool animat
 
   open_gl_context.extensions.glBindBuffer(GL_ARRAY_BUFFER, 0);
   open_gl_context.extensions.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+#endif
 }
 
 void OpenGLModulationManager::destroy(OpenGLContext& open_gl_context) {
+#if !JUCE_WASM
   shader_ = nullptr;
   position_ = nullptr;
   coordinates_ = nullptr;
@@ -304,6 +313,7 @@ void OpenGLModulationManager::destroy(OpenGLContext& open_gl_context) {
 
   open_gl_context.extensions.glDeleteBuffers(1, &vertex_buffer_);
   open_gl_context.extensions.glDeleteBuffers(1, &triangle_buffer_);
+#endif
 }
 
 void OpenGLModulationManager::hoverStarted(const std::string& name) {

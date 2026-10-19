@@ -30,6 +30,9 @@ class OpenGLPeakMeter : public OpenGLComponent {
 
     void resized() override;
 
+#if JUCE_WASM
+    void paint(Graphics& g) override;
+#endif
     void init(OpenGLContext& open_gl_context) override;
     void render(OpenGLContext& open_gl_context, bool animate = true) override;
     void destroy(OpenGLContext& open_gl_context) override;

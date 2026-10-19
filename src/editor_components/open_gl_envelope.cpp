@@ -20,7 +20,7 @@
 #include "synth_gui_interface.h"
 #include "utils.h"
 
-#if JUCE_MAJOR_VERSION >= 6
+#if JUCE_MAJOR_VERSION >= 6 && !JUCE_WASM
 using namespace juce::gl;
 #endif
 
@@ -380,6 +380,7 @@ Point<float> OpenGLEnvelope::valuesToPosition(float phase, float amp) {
 }
 
 void OpenGLEnvelope::init(OpenGLContext& open_gl_context) {
+#if !JUCE_WASM
   paintPositionImage();
 
   open_gl_context.extensions.glGenBuffers(1, &vertex_buffer_);
@@ -397,9 +398,11 @@ void OpenGLEnvelope::init(OpenGLContext& open_gl_context) {
                                           position_triangles_, GL_STATIC_DRAW);
 
   background_.init(open_gl_context);
+#endif
 }
 
 void OpenGLEnvelope::drawPosition(OpenGLContext& open_gl_context) {
+#if !JUCE_WASM
   if (position_texture_.getWidth() != position_image_.getWidth())
     position_texture_.loadImage(position_image_);
 
@@ -455,9 +458,11 @@ void OpenGLEnvelope::drawPosition(OpenGLContext& open_gl_context) {
 
   open_gl_context.extensions.glBindBuffer(GL_ARRAY_BUFFER, 0);
   open_gl_context.extensions.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+#endif
 }
 
 void OpenGLEnvelope::render(OpenGLContext& open_gl_context, bool animate) {
+#if !JUCE_WASM
   MOPO_ASSERT(glGetError() == GL_NO_ERROR);
 
   setViewPort(open_gl_context);
@@ -468,13 +473,27 @@ void OpenGLEnvelope::render(OpenGLContext& open_gl_context, bool animate) {
     drawPosition(open_gl_context);
 
   MOPO_ASSERT(glGetError() == GL_NO_ERROR);
+#endif
 }
 
 void OpenGLEnvelope::destroy(OpenGLContext& open_gl_context) {
+#if !JUCE_WASM
   position_texture_.release();
 
   texture_ = nullptr;
   open_gl_context.extensions.glDeleteBuffers(1, &vertex_buffer_);
   open_gl_context.extensions.glDeleteBuffers(1, &triangle_buffer_);
   background_.destroy(open_gl_context);
+#endif
 }
+
+#if JUCE_WASM
+void OpenGLEnvelope::paint(Graphics& g) {
+  g.drawImage(background_image_, getLocalBounds().toFloat());
+  if (browser_animate_ && envelope_phase_ && envelope_amp_ && envelope_amp_->buffer[0] > 0) {
+    const auto p = valuesToPosition(envelope_phase_->buffer[0], envelope_amp_->buffer[0]);
+    g.setColour(Colours::white.withAlpha(0.7f));
+    g.fillEllipse((p.x+1)*getWidth()/2-3, (1-p.y)*getHeight()/2-3, 6, 6);
+  }
+}
+#endif

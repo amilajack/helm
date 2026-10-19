@@ -20,7 +20,7 @@
 #include "synth_gui_interface.h"
 #include "utils.h"
 
-#if JUCE_MAJOR_VERSION >= 6
+#if JUCE_MAJOR_VERSION >= 6 && !JUCE_WASM
 using namespace juce::gl;
 #endif
 
@@ -235,6 +235,7 @@ float OpenGLWaveViewer::phaseToX(float phase) {
 }
 
 void OpenGLWaveViewer::init(OpenGLContext& open_gl_context) {
+#if !JUCE_WASM
   paintPositionImage();
 
   open_gl_context.extensions.glGenBuffers(1, &vertex_buffer_);
@@ -252,9 +253,11 @@ void OpenGLWaveViewer::init(OpenGLContext& open_gl_context) {
                                           position_triangles_, GL_STATIC_DRAW);
 
   background_.init(open_gl_context);
+#endif
 }
 
 void OpenGLWaveViewer::drawPosition(OpenGLContext& open_gl_context) {
+#if !JUCE_WASM
   if (position_texture_.getWidth() != position_image_.getWidth())
     position_texture_.loadImage(position_image_);
 
@@ -310,9 +313,11 @@ void OpenGLWaveViewer::drawPosition(OpenGLContext& open_gl_context) {
 
   open_gl_context.extensions.glBindBuffer(GL_ARRAY_BUFFER, 0);
   open_gl_context.extensions.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+#endif
 }
 
 void OpenGLWaveViewer::render(OpenGLContext& open_gl_context, bool animate) {
+#if !JUCE_WASM
   MOPO_ASSERT(glGetError() == GL_NO_ERROR);
 
   setViewPort(open_gl_context);
@@ -323,17 +328,31 @@ void OpenGLWaveViewer::render(OpenGLContext& open_gl_context, bool animate) {
     drawPosition(open_gl_context);
 
   MOPO_ASSERT(glGetError() == GL_NO_ERROR);
+#endif
 }
 
 void OpenGLWaveViewer::destroy(OpenGLContext& open_gl_context) {
+#if !JUCE_WASM
   position_texture_.release();
 
   texture_ = nullptr;
   open_gl_context.extensions.glDeleteBuffers(1, &vertex_buffer_);
   open_gl_context.extensions.glDeleteBuffers(1, &triangle_buffer_);
   background_.destroy(open_gl_context);
+#endif
 }
 
 float OpenGLWaveViewer::getRatio() {
   return getHeight() / 80.0f;
 }
+
+#if JUCE_WASM
+void OpenGLWaveViewer::paint(Graphics& g) {
+  g.drawImage(background_image_, getLocalBounds().toFloat());
+  if (browser_animate_ && wave_phase_ && wave_amp_) {
+    g.setColour(Colours::white.withAlpha(0.7f));
+    const float x = phaseToX(wave_phase_->buffer[0]);
+    g.drawVerticalLine(int(x), 0, float(getHeight()));
+  }
+}
+#endif

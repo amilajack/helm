@@ -1,0 +1,17 @@
+# Independently executable native/Wasm renderer using the production DSP sources.
+include(${CMAKE_SOURCE_DIR}/cmake/Sources.cmake)
+set(parity_sources ${HELM_COMMON_SOURCES})
+list(FILTER parity_sources INCLUDE REGEX "^(mopo/src/|src/synthesis/|src/common/helm_common.cpp)")
+list(TRANSFORM parity_sources PREPEND "${CMAKE_SOURCE_DIR}/")
+add_executable(HelmDspParity ${parity_sources} ${CMAKE_SOURCE_DIR}/tests/dsp_parity.cpp)
+target_include_directories(HelmDspParity PRIVATE ${CMAKE_SOURCE_DIR}/mopo/src
+  ${CMAKE_SOURCE_DIR}/src/synthesis ${CMAKE_SOURCE_DIR}/src/common)
+target_compile_features(HelmDspParity PRIVATE cxx_std_17)
+if(EMSCRIPTEN)
+  target_link_options(HelmDspParity PRIVATE -sENVIRONMENT=node -sALLOW_MEMORY_GROWTH=0
+    -sINITIAL_MEMORY=268435456 -sSTACK_SIZE=2097152 -sNODERAWFS=1)
+  set_target_properties(HelmDspParity PROPERTIES SUFFIX .js)
+endif()
+if(APPLE)
+  target_link_libraries(HelmDspParity PRIVATE "-framework Accelerate")
+endif()

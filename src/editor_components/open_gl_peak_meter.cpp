@@ -21,7 +21,7 @@
 #include "synth_gui_interface.h"
 #include "utils.h"
 
-#if JUCE_MAJOR_VERSION >= 6
+#if JUCE_MAJOR_VERSION >= 6 && !JUCE_WASM
 using namespace juce::gl;
 #endif
 
@@ -56,6 +56,7 @@ void OpenGLPeakMeter::resized() {
 }
 
 void OpenGLPeakMeter::init(OpenGLContext& open_gl_context) {
+#if !JUCE_WASM
   open_gl_context.extensions.glGenBuffers(1, &vertex_buffer_);
   open_gl_context.extensions.glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_);
 
@@ -81,6 +82,7 @@ void OpenGLPeakMeter::init(OpenGLContext& open_gl_context) {
     shader_->use();
     position_ = new OpenGLShaderProgram::Attribute(*shader_, "position");
   }
+#endif
 }
 
 void OpenGLPeakMeter::updateVertices() {
@@ -95,6 +97,7 @@ void OpenGLPeakMeter::updateVertices() {
 }
 
 void OpenGLPeakMeter::render(OpenGLContext& open_gl_context, bool animate) {
+#if !JUCE_WASM
   MOPO_ASSERT(glGetError() == GL_NO_ERROR);
 
   if (!animate || peak_output_ == nullptr)
@@ -125,13 +128,16 @@ void OpenGLPeakMeter::render(OpenGLContext& open_gl_context, bool animate) {
   open_gl_context.extensions.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
   
   MOPO_ASSERT(glGetError() == GL_NO_ERROR);
+#endif
 }
 
 void OpenGLPeakMeter::destroy(OpenGLContext& open_gl_context) {
+#if !JUCE_WASM
   shader_ = nullptr;
   position_ = nullptr;
   open_gl_context.extensions.glDeleteBuffers(1, &vertex_buffer_);
   open_gl_context.extensions.glDeleteBuffers(1, &triangle_buffer_);
+#endif
 }
 
 void OpenGLPeakMeter::paintBackground(Graphics& g) {
@@ -142,3 +148,13 @@ void OpenGLPeakMeter::paintBackground(Graphics& g) {
   g.setColour(Colour(0xff888888));
   g.fillRect(x - 1.0f, 0.0f, 2.0f, 1.0f * getHeight());
 }
+
+#if JUCE_WASM
+void OpenGLPeakMeter::paint(Graphics& g) {
+  if (browser_animate_ && peak_output_) {
+    g.setColour(Colour(0xff00e676));
+    float level = jlimit(0.f, 1.f, sqrtf(jmax(0.f, float(peak_output_->buffer[left_ ? 0 : 1])) / 4.f));
+    g.fillRect(0.f, 0.f, level * getWidth(), float(getHeight()));
+  }
+}
+#endif

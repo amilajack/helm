@@ -77,7 +77,18 @@ class SynthBase : public MidiManager::Listener {
     mopo::control_map& getControls() { return controls_; }
     mopo::HelmEngine* getEngine() { return &engine_; }
     MidiKeyboardState* getKeyboardState() { return keyboard_state_; }
-    const float* getOutputMemory() { return output_memory_; }
+    const float* getOutputMemory() {
+#if JUCE_WASM
+      return browser_output_memory_;
+#else
+      return output_memory_;
+#endif
+    }
+#if JUCE_WASM
+    mopo::output_map browserOutputs(mopo::output_map outputs);
+    mopo::Output* browserOutput(mopo::Output* output);
+    void browserSnapshot();
+#endif
     mopo::ModulationConnectionBank& getModulationBank() { return modulation_bank_; }
 
     struct ValueChangedCallback : public CallbackMessage {
@@ -120,6 +131,10 @@ class SynthBase : public MidiManager::Listener {
     ScopedPointer<MidiManager> midi_manager_;
     ScopedPointer<MidiKeyboardState> keyboard_state_;
 
+#if JUCE_WASM
+    std::map<mopo::Output*, std::unique_ptr<mopo::Output>> browser_outputs_;
+    float browser_output_memory_[2 * mopo::MEMORY_RESOLUTION]{};
+#endif
     File active_file_;
     float output_memory_[2 * mopo::MEMORY_RESOLUTION];
     float output_memory_write_[2 * mopo::MEMORY_RESOLUTION];

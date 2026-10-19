@@ -30,6 +30,9 @@ class OpenGLOscilloscope : public OpenGLComponent {
 
     void setOutputMemory(const float* memory) { output_memory_ = memory; }
 
+#if JUCE_WASM
+    void paint(Graphics& g) override;
+#endif
     void init(OpenGLContext& open_gl_context) override;
     void render(OpenGLContext& open_gl_context, bool animate = true) override;
     void destroy(OpenGLContext& open_gl_context) override;

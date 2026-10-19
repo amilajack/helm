@@ -1,0 +1,2373 @@
+{
+  "schema": 1,
+  "reference": "amilajack/surge@644d2db8c8d062818b2e2436fe386402a6709ea7",
+  "files": [
+    {
+      "path": "mopo/src/alias.cpp",
+      "sha256": "d62be77a0eb724e2d440b166bb94969c2384f8ce15709b9970a78bc3ff4b3bf6",
+      "methods": [
+        "Alias::Alias",
+        "Alias::process"
+      ]
+    },
+    {
+      "path": "mopo/src/arpeggiator.cpp",
+      "sha256": "87fcdeba23df824d8f0a3d5d6024bcb4ba9cad1d0da7648445ad6b195a4ccbe5",
+      "methods": [
+        "Arpeggiator::Arpeggiator",
+        "Arpeggiator::addNoteToPatterns",
+        "Arpeggiator::allNotesOff",
+        "Arpeggiator::getNextNote",
+        "Arpeggiator::getPressedNotes",
+        "Arpeggiator::noteOff",
+        "Arpeggiator::noteOn",
+        "Arpeggiator::process",
+        "Arpeggiator::removeNoteFromPatterns",
+        "Arpeggiator::sustainOff",
+        "Arpeggiator::sustainOn",
+        "std::remove",
+        "std::sort",
+        "utils::iclamp",
+        "utils::imax",
+        "utils::interpolate"
+      ]
+    },
+    {
+      "path": "mopo/src/biquad_filter.cpp",
+      "sha256": "a6bb8faf6761870e2dc15ab75b05192c57e508317fff497e704ec7dda84f72e3",
+      "methods": [
+        "BiquadFilter::BiquadFilter",
+        "BiquadFilter::computeCoefficients",
+        "BiquadFilter::getResponse",
+        "BiquadFilter::process",
+        "BiquadFilter::reset",
+        "BiquadFilter::tick",
+        "std::polar",
+        "std::sqrt",
+        "utils::clamp"
+      ]
+    },
+    {
+      "path": "mopo/src/bit_crush.cpp",
+      "sha256": "3c513833ba44d5ff5b4f0e988271cd847e45557d925efb897fd1a1a9aa62a7f7",
+      "methods": [
+        "BitCrush::BitCrush",
+        "BitCrush::process"
+      ]
+    },
+    {
+      "path": "mopo/src/bypass_router.cpp",
+      "sha256": "4f290c841169ea7fcd01824dfdc1729f32d55b4fa2ee27c24a3177f4c4db7743",
+      "methods": [
+        "BypassRouter::BypassRouter",
+        "BypassRouter::process",
+        "ProcessorRouter::process",
+        "utils::copyBuffer"
+      ]
+    },
+    {
+      "path": "mopo/src/delay.cpp",
+      "sha256": "d7b9e5ffc5b266902883ca761c919fde30840820a73be575afb18a120bb1c40d",
+      "methods": [
+        "Delay::Delay",
+        "Delay::process",
+        "Delay::tick",
+        "std::isfinite",
+        "utils::clamp"
+      ]
+    },
+    {
+      "path": "mopo/src/distortion.cpp",
+      "sha256": "24c8ae5d778f7d2a67506fa0caa1bb8c99310aae60cf7378bc068b94ec04c355",
+      "methods": [
+        "Distortion::Distortion",
+        "Distortion::process",
+        "Distortion::processHardClip",
+        "Distortion::processLinearFold",
+        "Distortion::processSinFold",
+        "Distortion::processSoftClip",
+        "utils::clamp",
+        "utils::copyBuffer",
+        "utils::interpolate",
+        "utils::quickSin1",
+        "utils::quickTanh"
+      ]
+    },
+    {
+      "path": "mopo/src/envelope.cpp",
+      "sha256": "cdf570fd3169268417b0860e1915efb8a3e542e40089617b75fea43f72cadbae",
+      "methods": [
+        "Envelope::Envelope",
+        "Envelope::process",
+        "Envelope::trigger",
+        "SampleDecayLookup::sampleDecayLookup",
+        "utils::max"
+      ]
+    },
+    {
+      "path": "mopo/src/feedback.cpp",
+      "sha256": "75ed206a384dd566269baec59feb758a2ce3410dbc4f8e29843a34d2686439b0",
+      "methods": [
+        "Feedback::process",
+        "Feedback::refreshOutput",
+        "utils::copyBuffer"
+      ]
+    },
+    {
+      "path": "mopo/src/formant_manager.cpp",
+      "sha256": "bfa242ab1c2d67122b3006f529542d2b4d6cc6ddb54c0d98bee3461eff857c69",
+      "methods": [
+        "FormantManager::FormantManager",
+        "FormantManager::getResponse",
+        "cr::Bypass"
+      ]
+    },
+    {
+      "path": "mopo/src/ladder_filter.cpp",
+      "sha256": "2ad5ea5684471f89e54db3cd0dec0c3c75a851d3419f04d55a12e9fe96cae89e",
+      "methods": [
+        "LadderFilter::LadderFilter",
+        "LadderFilter::computeCoefficients",
+        "LadderFilter::process",
+        "LadderFilter::reset",
+        "LadderFilter::tick",
+        "utils::clamp",
+        "utils::quickTanh"
+      ]
+    },
+    {
+      "path": "mopo/src/linear_slope.cpp",
+      "sha256": "cd76f14890597137e80525c96cf50a2a5d1aa795357e058fc3d987f5e122397b",
+      "methods": [
+        "LinearSlope::LinearSlope",
+        "LinearSlope::process",
+        "LinearSlope::tick",
+        "utils::clamp",
+        "utils::closeToZero"
+      ]
+    },
+    {
+      "path": "mopo/src/magnitude_lookup.cpp",
+      "sha256": "67f8952b5b6f444de8fbba4e8b20904fc6af821ddf8d6f16e2a5c345173e9e8d",
+      "methods": []
+    },
+    {
+      "path": "mopo/src/memory.cpp",
+      "sha256": "8771c66de3ecfa8c1ddd412787356ee00f938c0217cb1c465c602c8e56183b6d",
+      "methods": [
+        "Memory::Memory",
+        "utils::nextPowerOfTwo",
+        "utils::zeroBuffer"
+      ]
+    },
+    {
+      "path": "mopo/src/midi_lookup.cpp",
+      "sha256": "1f886aa78d68aadcac4a3451a8645a9b6cf7d7025187a04ba7a2b764bd595fd4",
+      "methods": []
+    },
+    {
+      "path": "mopo/src/mono_panner.cpp",
+      "sha256": "c33894d4ba8fc85a8069cc7a2d4069a70b289a66bf1b1813c82cc13d57b66a44",
+      "methods": [
+        "MonoPanner::MonoPanner",
+        "MonoPanner::process",
+        "Wave::fullsin",
+        "utils::mod"
+      ]
+    },
+    {
+      "path": "mopo/src/operators.cpp",
+      "sha256": "93a84b7d5abd511825637db2e046864548661f7ce7e524f3b8452ed57b3a933e",
+      "methods": [
+        "Add::process",
+        "BilinearInterpolate::process",
+        "Bypass::process",
+        "Clamp::process",
+        "FrequencyToPhase::process",
+        "FrequencyToSamples::process",
+        "Interpolate::process",
+        "LinearScale::process",
+        "LinearSmoothBuffer::process",
+        "Multiply::process",
+        "Negate::process",
+        "Operator::process",
+        "SampleAndHoldBuffer::process",
+        "Subtract::process",
+        "TimeToSamples::process",
+        "VariableAdd::process",
+        "utils::copyBuffer",
+        "utils::zeroBuffer"
+      ]
+    },
+    {
+      "path": "mopo/src/oscillator.cpp",
+      "sha256": "498567988edfe545d4b2d2720209898ba2a0cfe628732fcc304ecaa7cd360c86",
+      "methods": [
+        "Oscillator::Oscillator",
+        "Oscillator::preprocess",
+        "Oscillator::process"
+      ]
+    },
+    {
+      "path": "mopo/src/portamento_slope.cpp",
+      "sha256": "45391d5426fdc68af4b7f1542e6030efc09281f9f9d34cf8e772515cf449438b",
+      "methods": [
+        "PortamentoSlope::PortamentoSlope",
+        "PortamentoSlope::process",
+        "PortamentoSlope::processBypass",
+        "PortamentoSlope::processTriggers",
+        "PortamentoSlope::tick",
+        "utils::clamp",
+        "utils::closeToZero",
+        "utils::copyBuffer"
+      ]
+    },
+    {
+      "path": "mopo/src/processor.cpp",
+      "sha256": "e4a3d4162a75b3222685628a259abb653c466cef4e517978f63b18bc0d1e1366",
+      "methods": [
+        "Processor::Processor",
+        "Processor::addInput",
+        "Processor::addOutput",
+        "Processor::connectedInputs",
+        "Processor::destroy",
+        "Processor::getTopLevelRouter",
+        "Processor::inputMatchesBufferSize",
+        "Processor::isPolyphonic",
+        "Processor::plug",
+        "Processor::plugNext",
+        "Processor::registerInput",
+        "Processor::registerOutput",
+        "Processor::unplug",
+        "Processor::unplugIndex",
+        "cr::Output"
+      ]
+    },
+    {
+      "path": "mopo/src/processor_router.cpp",
+      "sha256": "06192628f54ffe297aec7c385c30f0b73ccf408a0da3234eb14966e70f96cd86",
+      "methods": [
+        "Processor::destroy",
+        "Processor::setBufferSize",
+        "Processor::setSampleRate",
+        "ProcessorRouter::ProcessorRouter",
+        "ProcessorRouter::addFeedback",
+        "ProcessorRouter::addIdleProcessor",
+        "ProcessorRouter::addProcessor",
+        "ProcessorRouter::areOrdered",
+        "ProcessorRouter::connect",
+        "ProcessorRouter::destroy",
+        "ProcessorRouter::disconnect",
+        "ProcessorRouter::getContext",
+        "ProcessorRouter::getDependencies",
+        "ProcessorRouter::getMonoRouter",
+        "ProcessorRouter::getPolyRouter",
+        "ProcessorRouter::isDownstream",
+        "ProcessorRouter::isPolyphonic",
+        "ProcessorRouter::process",
+        "ProcessorRouter::removeFeedback",
+        "ProcessorRouter::removeProcessor",
+        "ProcessorRouter::reorder",
+        "ProcessorRouter::setBufferSize",
+        "ProcessorRouter::setSampleRate",
+        "ProcessorRouter::updateAllProcessors",
+        "cr::Feedback",
+        "std::find"
+      ]
+    },
+    {
+      "path": "mopo/src/resonance_lookup.cpp",
+      "sha256": "445ad77872ab0dcdc681d573f0bfa989bb9ecce9da460f33b4848a04f560ee0e",
+      "methods": []
+    },
+    {
+      "path": "mopo/src/reverb.cpp",
+      "sha256": "97cd133d532189489ccc8f22123d04f90ca00624244eaca9afbfcfa0a6250a70",
+      "methods": [
+        "ProcessorRouter::process",
+        "Reverb::Reverb",
+        "Reverb::process",
+        "cr::Clamp",
+        "cr::TimeToSamples",
+        "cr::Value",
+        "utils::clamp"
+      ]
+    },
+    {
+      "path": "mopo/src/reverb_all_pass.cpp",
+      "sha256": "71a9f3ceb457c88ee0d2ccdf59fe5f9e8da54962ba0fdac3760e83792fc09577",
+      "methods": [
+        "ReverbAllPass::ReverbAllPass",
+        "ReverbAllPass::process"
+      ]
+    },
+    {
+      "path": "mopo/src/reverb_comb.cpp",
+      "sha256": "ea0eefb75d66e33c2e9d940be3d9ab23403487761550bb002f49035e5358601d",
+      "methods": [
+        "ReverbComb::ReverbComb",
+        "ReverbComb::process"
+      ]
+    },
+    {
+      "path": "mopo/src/sample_decay_lookup.cpp",
+      "sha256": "9509bacbb32fe3bd47c9ebe28cee5ea23240f149bd315a524df31152fc5a896c",
+      "methods": []
+    },
+    {
+      "path": "mopo/src/simple_delay.cpp",
+      "sha256": "25d33efeba5b3a0d525bec3303b133ba2c147ac1185302e18bab30c5dce4ae52",
+      "methods": [
+        "SimpleDelay::SimpleDelay",
+        "SimpleDelay::process",
+        "std::min"
+      ]
+    },
+    {
+      "path": "mopo/src/smooth_filter.cpp",
+      "sha256": "82047dc34ef999fddcbb150a3b89c96a9c7a540e28f9d08a0886eb6bd9da98ce",
+      "methods": [
+        "SmoothFilter::SmoothFilter",
+        "SmoothFilter::process",
+        "std::pow",
+        "utils::interpolate"
+      ]
+    },
+    {
+      "path": "mopo/src/smooth_value.cpp",
+      "sha256": "968b18c8cd852f953f90821327e4dd5b95084d4d57520fed77b57da5f65c9017",
+      "methods": [
+        "SmoothValue::SmoothValue",
+        "SmoothValue::computeDecay",
+        "SmoothValue::process",
+        "SmoothValue::setBufferSize",
+        "SmoothValue::setSampleRate",
+        "SmoothValue::tick",
+        "Value::setBufferSize",
+        "Value::setSampleRate",
+        "utils::interpolate"
+      ]
+    },
+    {
+      "path": "mopo/src/state_variable_filter.cpp",
+      "sha256": "54f2987c68265c6b0bccea839a7e38842563dc1d5ca71ab3465eb6c73af8bfdf",
+      "methods": [
+        "StateVariableFilter::StateVariableFilter",
+        "StateVariableFilter::computePassCoefficients",
+        "StateVariableFilter::computeShelfCoefficients",
+        "StateVariableFilter::process",
+        "StateVariableFilter::process12db",
+        "StateVariableFilter::process24db",
+        "StateVariableFilter::processAllPass",
+        "StateVariableFilter::reset",
+        "StateVariableFilter::tick",
+        "StateVariableFilter::tick24db",
+        "utils::clamp",
+        "utils::copyBuffer",
+        "utils::min",
+        "utils::quickTanh"
+      ]
+    },
+    {
+      "path": "mopo/src/step_generator.cpp",
+      "sha256": "e5d60d1a14bdabec7d0fb986f2abaf720622f30d1ad16f798928bc4f6e12f1f2",
+      "methods": [
+        "StepGenerator::StepGenerator",
+        "StepGenerator::correctToTime",
+        "StepGenerator::process",
+        "utils::iclamp",
+        "utils::mod"
+      ]
+    },
+    {
+      "path": "mopo/src/stutter.cpp",
+      "sha256": "76de48942b40bea5de091a1285b846f298daa5cf59352a17e55d8783717235b9",
+      "methods": [
+        "Stutter::Stutter",
+        "Stutter::process",
+        "std::ceil",
+        "std::fabs",
+        "std::min",
+        "utils::clamp",
+        "utils::interpolate",
+        "utils::max",
+        "utils::min"
+      ]
+    },
+    {
+      "path": "mopo/src/trigger_operators.cpp",
+      "sha256": "ef911aaf7b6050259def46260a76db3866ea0c8bfef0d677b83fabb0968b4438",
+      "methods": [
+        "LegatoFilter::LegatoFilter",
+        "LegatoFilter::process",
+        "PortamentoFilter::PortamentoFilter",
+        "PortamentoFilter::process",
+        "PortamentoFilter::updateReleased",
+        "PortamentoFilter::updateTrigger",
+        "TriggerCombiner::TriggerCombiner",
+        "TriggerCombiner::process",
+        "TriggerEquals::process",
+        "TriggerFilter::TriggerFilter",
+        "TriggerFilter::process",
+        "TriggerNonZero::process",
+        "TriggerWait::TriggerWait",
+        "TriggerWait::process",
+        "TriggerWait::sendTrigger",
+        "TriggerWait::waitTrigger"
+      ]
+    },
+    {
+      "path": "mopo/src/value.cpp",
+      "sha256": "ee8f382f6a070375a27ae522477551542d572f4184d1ccc6938bb55d099c9aff",
+      "methods": [
+        "Value::Value",
+        "Value::process",
+        "Value::set",
+        "std::min"
+      ]
+    },
+    {
+      "path": "mopo/src/voice_handler.cpp",
+      "sha256": "e7d356c8d975fe83559f6895b34b9694dd646d23bafb8be416d7f8fd48014e6f",
+      "methods": [
+        "ProcessorRouter::registerOutput",
+        "ProcessorRouter::setBufferSize",
+        "ProcessorRouter::setSampleRate",
+        "Voice::Voice",
+        "VoiceHandler::VoiceHandler",
+        "VoiceHandler::accumulateOutputs",
+        "VoiceHandler::addGlobalProcessor",
+        "VoiceHandler::addProcessor",
+        "VoiceHandler::allNotesOff",
+        "VoiceHandler::clearAccumulatedOutputs",
+        "VoiceHandler::clearNonaccumulatedOutputs",
+        "VoiceHandler::createVoice",
+        "VoiceHandler::getLastActiveNote",
+        "VoiceHandler::getNumActiveVoices",
+        "VoiceHandler::getVoiceToKill",
+        "VoiceHandler::grabVoice",
+        "VoiceHandler::isNotePlaying",
+        "VoiceHandler::isPolyphonic",
+        "VoiceHandler::noteOff",
+        "VoiceHandler::noteOn",
+        "VoiceHandler::prepareVoiceTriggers",
+        "VoiceHandler::process",
+        "VoiceHandler::processVoice",
+        "VoiceHandler::registerOutput",
+        "VoiceHandler::removeGlobalProcessor",
+        "VoiceHandler::removeProcessor",
+        "VoiceHandler::setAftertouch",
+        "VoiceHandler::setBufferSize",
+        "VoiceHandler::setChannelAftertouch",
+        "VoiceHandler::setPolyphony",
+        "VoiceHandler::setSampleRate",
+        "VoiceHandler::shouldAccumulate",
+        "VoiceHandler::sustainOff",
+        "VoiceHandler::sustainOn",
+        "VoiceHandler::writeNonaccumulatedOutputs",
+        "utils::copyBuffer",
+        "utils::iclamp",
+        "utils::isSilent",
+        "utils::zeroBuffer"
+      ]
+    },
+    {
+      "path": "src/browser/BrowserAccessibility.inc",
+      "sha256": "487eaef4fdbf9a6b302c6ba8f4c09dec737c6f26f09e84606bd663537918589d",
+      "methods": [
+        "Component::getCurrentlyFocusedComponent",
+        "Desktop::getInstance",
+        "JSON::toString",
+        "MessageManager::callAsync",
+        "MessageManager::getInstance",
+        "PopupMenu::dismissAllActiveMenus",
+        "String::fromUTF8",
+        "std::any_of",
+        "std::find_if",
+        "std::free",
+        "std::isfinite",
+        "std::move",
+        "std::prev",
+        "std::remove_if"
+      ]
+    },
+    {
+      "path": "src/browser/BrowserAllocationAudit.c",
+      "sha256": "f712ea435e91eaaef96a89a2c3f239a235517118c547e4aeaf838b16486bedef",
+      "methods": []
+    },
+    {
+      "path": "src/browser/BrowserAudio.cpp",
+      "sha256": "9745707afda8622dba3502545591420084c7fdaa0901ec616ca204a82c6ec997",
+      "methods": [
+        "BrowserSynth::queueKeyboard",
+        "std::abs",
+        "std::floor",
+        "std::isfinite",
+        "std::max",
+        "std::min"
+      ]
+    },
+    {
+      "path": "src/browser/BrowserAudioThread.c",
+      "sha256": "d6812f8bdc55e36a68dcaedb8d04cb635c84fa4bc75aa8ae1952fdaa9d965665",
+      "methods": []
+    },
+    {
+      "path": "src/browser/BrowserControl.cpp",
+      "sha256": "02177aa08d90c12c90601eac53ff38cc17a21bcff1f0d1de2f6211024201b1f6",
+      "methods": [
+        "std::move"
+      ]
+    },
+    {
+      "path": "src/browser/BrowserControl.h",
+      "sha256": "9e2b88bb4bdd39729a658ea296017082cf816c4d9c8cb2d91c76e710fd7cc564",
+      "methods": []
+    },
+    {
+      "path": "src/browser/BrowserCore.cpp",
+      "sha256": "026b7c33f8a76859384db35b1f56c60906f6cdefffe1dd1f70a369ecce9c31a9",
+      "methods": [
+        "DatagramSocket::DatagramSocket",
+        "DatagramSocket::bindToPort",
+        "DatagramSocket::getBoundPort",
+        "DatagramSocket::joinMulticast",
+        "DatagramSocket::leaveMulticast",
+        "DatagramSocket::read",
+        "DatagramSocket::setEnablePortReuse",
+        "DatagramSocket::setMulticastLoopbackEnabled",
+        "DatagramSocket::shutdown",
+        "DatagramSocket::waitUntilReady",
+        "DatagramSocket::write",
+        "File::getSpecialLocation",
+        "File::getVersion",
+        "File::isOnCDRomDrive",
+        "File::isOnHardDisk",
+        "File::isOnRemovableDrive",
+        "File::moveToTrash",
+        "File::revealToUser",
+        "Listener::postDataSendProgress",
+        "Process::openDocument",
+        "WebInputStream::WebInputStream",
+        "WebInputStream::cancel",
+        "WebInputStream::connect",
+        "WebInputStream::getPosition",
+        "WebInputStream::getRequestHeaders",
+        "WebInputStream::getResponseHeaders",
+        "WebInputStream::getStatusCode",
+        "WebInputStream::getTotalLength",
+        "WebInputStream::isError",
+        "WebInputStream::isExhausted",
+        "WebInputStream::read",
+        "WebInputStream::setPosition",
+        "WebInputStream::withConnectionTimeout",
+        "WebInputStream::withCustomRequestCommand",
+        "WebInputStream::withExtraHeaders",
+        "WebInputStream::withNumRedirectsToFollow"
+      ]
+    },
+    {
+      "path": "src/browser/BrowserDevices.cpp",
+      "sha256": "cbd7d88c725424b70d8e937403a0515fc9da865a0e4c6435b9e5b75dfe03f7e6",
+      "methods": [
+        "Native::make"
+      ]
+    },
+    {
+      "path": "src/browser/BrowserEvents.cpp",
+      "sha256": "467e1eaee558186ced2590c48158469836b320e246a6b6be36c17999ff8597dc",
+      "methods": [
+        "MessageManager::broadcastMessage",
+        "MessageManager::doPlatformSpecificInitialisation",
+        "MessageManager::doPlatformSpecificShutdown",
+        "MessageManager::postMessageToSystemQueue",
+        "Timer::callPendingTimersSynchronously",
+        "detail::dispatchNextMessageOnSystemQueue"
+      ]
+    },
+    {
+      "path": "src/browser/BrowserFileChooser.cpp",
+      "sha256": "89c46dca3fe9b8fada80fc6a2e13d551ed18071783d63101cd0b1b0c17341df2",
+      "methods": [
+        "FileChooser::isPlatformDialogAvailable",
+        "FileChooser::showPlatformDialog",
+        "JSON::parse",
+        "Native::complete",
+        "Native::defer",
+        "String::fromUTF8"
+      ]
+    },
+    {
+      "path": "src/browser/BrowserFiles.cpp",
+      "sha256": "d91ef674ef07838f164fc51b1758d65da13fb4540223a0f8e74e1c9d9e345b08",
+      "methods": [
+        "JSON::parse",
+        "JSON::toString",
+        "LoadSave::compareVersionStrings",
+        "LoadSave::exportBank",
+        "LoadSave::getBankDirectory",
+        "LoadSave::getUserBankDirectory",
+        "LoadSave::importBank",
+        "Parameters::getDetails",
+        "String::fromUTF8",
+        "StringArray::fromTokens",
+        "std::abs",
+        "std::isfinite"
+      ]
+    },
+    {
+      "path": "src/browser/BrowserHeaders.h",
+      "sha256": "631c607bbdf53007cc39d80f4f945d7a753170fdabd290646406f8ddb5d9f92f",
+      "methods": []
+    },
+    {
+      "path": "src/browser/BrowserKeys.h",
+      "sha256": "0395cbfd31a0f97b9ef84278d10138fd516287045da78b0f005639b8bfd6edaf",
+      "methods": []
+    },
+    {
+      "path": "src/browser/BrowserMain.cpp",
+      "sha256": "a6378a9a0c573790db157fc8ac11ec80315e029965ba8b175311f721ebbaf089",
+      "methods": [
+        "BluetoothMidiDevicePairingDialogue::isAvailable",
+        "BluetoothMidiDevicePairingDialogue::open",
+        "ComponentPeer::getNumPeers",
+        "ComponentPeer::getPeer",
+        "DefaultLookAndFeel::instance",
+        "LookAndFeel::setDefaultLookAndFeel",
+        "Typeface::scanFolderForFonts"
+      ]
+    },
+    {
+      "path": "src/browser/BrowserSynth.h",
+      "sha256": "20a558d1fb88fff59ab03b7868daa766af6ce837f993f788cdcd3a288307e0ea",
+      "methods": [
+        "std::min"
+      ]
+    },
+    {
+      "path": "src/browser/BrowserTextInput.inc",
+      "sha256": "6033b264bf55b4cbc9d77f6c695c85b69efac31465306c08e795559f5aa0630b",
+      "methods": [
+        "AffineTransform::scale",
+        "Component::getCurrentlyFocusedComponent",
+        "ComponentPeer::getNumPeers",
+        "ComponentPeer::getPeer",
+        "JSON::toString",
+        "std::sin"
+      ]
+    },
+    {
+      "path": "src/browser/BrowserWindowing.cpp",
+      "sha256": "e36ed0c3d9fe28b8acd4a1a392d44e47aefde05d3e75c277e734ff8376088dec",
+      "methods": [
+        "AffineTransform::scale",
+        "BrowserPeer::inputPeer",
+        "Component::createNewPeer",
+        "Desktop::allowedOrientationsChanged",
+        "Desktop::canUseSemiTransparentWindows",
+        "Desktop::createNativeDarkModeChangeDetectorImpl",
+        "Desktop::getCurrentOrientation",
+        "Desktop::getDefaultMasterScale",
+        "Desktop::isDarkModeActive",
+        "Desktop::isScreenSaverEnabled",
+        "Desktop::setKioskComponent",
+        "Desktop::setScreenSaverEnabled",
+        "Displays::findDisplays",
+        "DragAndDropContainer::performExternalDragDropOfFiles",
+        "DragAndDropContainer::performExternalDragDropOfText",
+        "JSON::parse",
+        "KeyPress::isKeyCurrentlyDown",
+        "LookAndFeel::playAlertSound",
+        "MouseInputSource::getCurrentRawMousePosition",
+        "MouseInputSource::setRawMousePosition",
+        "MouseInputSourceList::addSource",
+        "MouseInputSourceList::canUseTouch",
+        "Process::hide",
+        "Process::isForegroundProcess",
+        "Process::makeForegroundProcess",
+        "String::fromUTF8",
+        "SystemClipboard::copyTextToClipboard",
+        "SystemClipboard::getTextFromClipboard",
+        "SystemClipboard::readTextAsync",
+        "SystemClipboard::reportClipboardError",
+        "SystemClipboard::writeTextAsync",
+        "Time::getMillisecondCounter",
+        "WindowUtils::areThereAnyAlwaysOnTopWindows",
+        "WindowingHelpers::createIconForFile",
+        "std::ceil",
+        "std::free",
+        "std::move"
+      ]
+    },
+    {
+      "path": "src/browser/JuceHeader.h",
+      "sha256": "ac618918184815c7cbd60f198646b0c697a41b380b50193740853a4b94eaa7c8",
+      "methods": []
+    },
+    {
+      "path": "src/browser/MidiQueue.h",
+      "sha256": "de33bd0489bfae6d30ab13501bc71ba858cf965763c82ddcb5ff5592f34c6124",
+      "methods": [
+        "std::isfinite",
+        "std::max"
+      ]
+    },
+    {
+      "path": "src/browser/SoftwareRendererTypes.h",
+      "sha256": "4dfc8cfd4cbe553829ac5be82c0a4e4b1a0a24f20cbfb67fcb6722d8c64f9a65",
+      "methods": []
+    },
+    {
+      "path": "src/browser/Transport.h",
+      "sha256": "3522789cbb05ef5a7459e6dc89d5874e6306485db23e464d45160540c527f3ce",
+      "methods": [
+        "std::isfinite"
+      ]
+    },
+    {
+      "path": "src/common/border_bounds_constrainer.cpp",
+      "sha256": "91fbbbe3cdb8bc49dc73e1eeb25efa22db4832ca33e1ec9e45b5bbcfd92624ed",
+      "methods": [
+        "BorderBoundsConstrainer::checkBounds",
+        "ComponentBoundsConstrainer::checkBounds",
+        "std::max"
+      ]
+    },
+    {
+      "path": "src/common/file_list_box_model.cpp",
+      "sha256": "44f8826468aaa53995935a7b108f24f449df46d024f754e1377c45d349848820",
+      "methods": [
+        "FileListBoxModel::deleteKeyPressed",
+        "FileListBoxModel::getNumRows",
+        "FileListBoxModel::paintListBoxItem",
+        "FileListBoxModel::rescanFiles",
+        "FileListBoxModel::selectedRowsChanged",
+        "Fonts::instance"
+      ]
+    },
+    {
+      "path": "src/common/helm_common.cpp",
+      "sha256": "b60bbdf9da65c62614460613d68416b47264ccef6ff959a7a9bfe73f33044b3b",
+      "methods": [
+        "ModulationConnectionBank::ModulationConnectionBank",
+        "ModulationConnectionBank::allocateMoreConnections",
+        "ModulationConnectionBank::get",
+        "ModulationConnectionBank::recycle",
+        "ValueDetailsLookup::ValueDetailsLookup"
+      ]
+    },
+    {
+      "path": "src/common/load_save.cpp",
+      "sha256": "87e1f8c0fb6102eeb7d72e3a5dacee1e0594ad7db25910ac6076a411e2c70075",
+      "methods": [
+        "File::getSpecialLocation",
+        "JSON::parse",
+        "JSON::toString",
+        "LoadSave::compareVersionStrings",
+        "LoadSave::exportBank",
+        "LoadSave::getAllPatches",
+        "LoadSave::getAuthor",
+        "LoadSave::getBankDirectory",
+        "LoadSave::getComputerKeyboardLayout",
+        "LoadSave::getComputerKeyboardOctaveControls",
+        "LoadSave::getConfigFile",
+        "LoadSave::getConfigVar",
+        "LoadSave::getDidPayInitiallyFile",
+        "LoadSave::getFactoryBankDirectory",
+        "LoadSave::getLicense",
+        "LoadSave::getNumPatches",
+        "LoadSave::getPatchFile",
+        "LoadSave::getUserBankDirectory",
+        "LoadSave::importBank",
+        "LoadSave::initSynth",
+        "LoadSave::isInstalled",
+        "LoadSave::loadConfig",
+        "LoadSave::loadControls",
+        "LoadSave::loadModulations",
+        "LoadSave::loadPatch",
+        "LoadSave::loadPatchFile",
+        "LoadSave::loadSaveState",
+        "LoadSave::loadVersion",
+        "LoadSave::loadWindowSize",
+        "LoadSave::saveAnimateWidgets",
+        "LoadSave::saveLastAskedForMoney",
+        "LoadSave::saveLayoutConfig",
+        "LoadSave::saveMidiMapConfig",
+        "LoadSave::saveShouldAskForMoney",
+        "LoadSave::saveUpdateCheckConfig",
+        "LoadSave::saveVarToConfig",
+        "LoadSave::saveVersionConfig",
+        "LoadSave::saveWindowSize",
+        "LoadSave::shouldAnimateWidgets",
+        "LoadSave::shouldAskForPayment",
+        "LoadSave::shouldCheckForUpdates",
+        "LoadSave::stateToVar",
+        "LoadSave::varToState",
+        "LoadSave::wasUpgraded",
+        "Parameters::getDetails",
+        "Time::currentTimeMillis",
+        "std::min"
+      ]
+    },
+    {
+      "path": "src/common/midi_manager.cpp",
+      "sha256": "6b57d9d3bd3bcb9cc39918bc6f31d6104451cb6d5b778d5712941b45463e95cd",
+      "methods": [
+        "LoadSave::getPatchFile",
+        "LoadSave::loadPatch",
+        "LoadSave::saveMidiMapConfig",
+        "MidiManager::MidiManager",
+        "MidiManager::armMidiLearn",
+        "MidiManager::cancelMidiLearn",
+        "MidiManager::clearMidiLearn",
+        "MidiManager::handleIncomingMidiMessage",
+        "MidiManager::isMidiMapped",
+        "MidiManager::midiInput",
+        "MidiManager::processMidiMessage",
+        "MidiManager::removeNextBlockOfMessages",
+        "MidiManager::replaceKeyboardMessages",
+        "MidiManager::setSampleRate",
+        "Parameters::getDetails"
+      ]
+    },
+    {
+      "path": "src/common/startup.cpp",
+      "sha256": "4ac3215ae270c39037f30eee449066cb56e1a3b7e0e2e2e34b120c227811ada3",
+      "methods": [
+        "File::getSpecialLocation",
+        "JSON::parse",
+        "JSON::toString",
+        "LoadSave::compareVersionStrings",
+        "LoadSave::getAuthor",
+        "LoadSave::getBankDirectory",
+        "LoadSave::getConfigFile",
+        "LoadSave::getFactoryBankDirectory",
+        "LoadSave::getUserBankDirectory",
+        "LoadSave::isInstalled",
+        "LoadSave::loadConfig",
+        "LoadSave::loadVersion",
+        "LoadSave::saveLastAskedForMoney",
+        "LoadSave::saveVersionConfig",
+        "LoadSave::stateToVar",
+        "LoadSave::varToState",
+        "LoadSave::wasUpgraded",
+        "Startup::copyFactoryPatches",
+        "Startup::doStartupChecks",
+        "Startup::fixPatchesFolder",
+        "Startup::isFirstStartup",
+        "Startup::storeOldFactoryPatches",
+        "Startup::updateAllPatches"
+      ]
+    },
+    {
+      "path": "src/common/synth_base.cpp",
+      "sha256": "bd7d2515bc8ce8e6c5c1274806db59122a6180bc1c3661038edf95847b6e815f",
+      "methods": [
+        "JSON::parse",
+        "JSON::toString",
+        "LoadSave::initSynth",
+        "LoadSave::stateToVar",
+        "LoadSave::varToState",
+        "Startup::doStartupChecks",
+        "SynthBase::SynthBase",
+        "SynthBase::armMidiLearn",
+        "SynthBase::browserOutput",
+        "SynthBase::browserOutputs",
+        "SynthBase::browserSnapshot",
+        "SynthBase::cancelMidiLearn",
+        "SynthBase::changeModulationAmount",
+        "SynthBase::clearMidiLearn",
+        "SynthBase::clearModulations",
+        "SynthBase::disconnectModulation",
+        "SynthBase::exportToFile",
+        "SynthBase::getAuthor",
+        "SynthBase::getConnection",
+        "SynthBase::getDestinationConnections",
+        "SynthBase::getFolderName",
+        "SynthBase::getModSource",
+        "SynthBase::getNumModulations",
+        "SynthBase::getPatchName",
+        "SynthBase::getSourceConnections",
+        "SynthBase::isMidiMapped",
+        "SynthBase::loadFromFile",
+        "SynthBase::loadFromVar",
+        "SynthBase::loadInitPatch",
+        "SynthBase::patchChangedThroughMidi",
+        "SynthBase::processAudio",
+        "SynthBase::processControlChanges",
+        "SynthBase::processKeyboardEvents",
+        "SynthBase::processMidi",
+        "SynthBase::processModulationChanges",
+        "SynthBase::saveToActiveFile",
+        "SynthBase::saveToFile",
+        "SynthBase::saveToVar",
+        "SynthBase::setAuthor",
+        "SynthBase::setFolderName",
+        "SynthBase::setModulationAmount",
+        "SynthBase::setPatchName",
+        "SynthBase::updateMemoryOutput",
+        "SynthBase::valueChanged",
+        "SynthBase::valueChangedExternal",
+        "SynthBase::valueChangedInternal",
+        "SynthBase::valueChangedThroughMidi",
+        "ValueChangedCallback::messageCallback",
+        "mopo::control_change",
+        "mopo::modulation_change",
+        "std::copy_n",
+        "std::isfinite",
+        "std::max",
+        "std::min",
+        "std::move",
+        "utils::copyBufferf",
+        "utils::enableDenormalFlushing",
+        "utils::iclamp",
+        "utils::midiNoteToFrequency"
+      ]
+    },
+    {
+      "path": "src/common/synth_gui_interface.cpp",
+      "sha256": "9c2f40930c9de363eafac1df2ff1a9a966f90c3d6b12cde9d774ae7a58cf043f",
+      "methods": [
+        "SynthGuiInterface::SynthGuiInterface",
+        "SynthGuiInterface::externalPatchLoaded",
+        "SynthGuiInterface::getControlValue",
+        "SynthGuiInterface::notifyChange",
+        "SynthGuiInterface::notifyFresh",
+        "SynthGuiInterface::setFocus",
+        "SynthGuiInterface::setGuiSize",
+        "SynthGuiInterface::updateFullGui",
+        "SynthGuiInterface::updateGuiControl"
+      ]
+    },
+    {
+      "path": "src/editor_components/bpm_slider.cpp",
+      "sha256": "087d949dca3c822384bfe987abf67970ddf84157dc9a37fe1a8304132bfeb074",
+      "methods": [
+        "BpmSlider::BpmSlider",
+        "BpmSlider::timerCallback"
+      ]
+    },
+    {
+      "path": "src/editor_components/filter_response.cpp",
+      "sha256": "0068f92cf913ad856842bb6e899bf729a4aa47ebc7a1787821eaf443ba525421",
+      "methods": [
+        "AffineTransform::scale",
+        "Desktop::getInstance",
+        "FilterResponse::FilterResponse",
+        "FilterResponse::computeFilterCoefficients",
+        "FilterResponse::getPercentForMidiNote",
+        "FilterResponse::guiChanged",
+        "FilterResponse::mouseDown",
+        "FilterResponse::mouseDrag",
+        "FilterResponse::paint",
+        "FilterResponse::paintBackground",
+        "FilterResponse::resetResponsePath",
+        "FilterResponse::resized",
+        "FilterResponse::setActive",
+        "FilterResponse::setCutoffSlider",
+        "FilterResponse::setFilterBlendSlider",
+        "FilterResponse::setFilterSettingsFromPosition",
+        "FilterResponse::setFilterShelfSlider",
+        "FilterResponse::setResonanceSlider",
+        "FilterResponse::setStyle",
+        "utils::clamp",
+        "utils::dbToGain",
+        "utils::gainToDb",
+        "utils::interpolate",
+        "utils::magnitudeToQ",
+        "utils::midiNoteToFrequency"
+      ]
+    },
+    {
+      "path": "src/editor_components/filter_selector.cpp",
+      "sha256": "15073cccde45241bbc16395e072aae6987dd6d927ae8ca418cf4090253d20f23",
+      "methods": [
+        "FilterSelector::FilterSelector",
+        "FilterSelector::mouseDown",
+        "FilterSelector::mouseDrag",
+        "FilterSelector::mouseEvent",
+        "FilterSelector::paint",
+        "FilterSelector::resizeAllPass",
+        "FilterSelector::resizeBandPass",
+        "FilterSelector::resizeBandShelf",
+        "FilterSelector::resizeHighPass",
+        "FilterSelector::resizeHighShelf",
+        "FilterSelector::resizeLowPass",
+        "FilterSelector::resizeLowShelf",
+        "FilterSelector::resized",
+        "SynthSlider::resized"
+      ]
+    },
+    {
+      "path": "src/editor_components/global_tool_tip.cpp",
+      "sha256": "b7576a04794caa201e7b55c246e6ed645fea1cd8da0c4d6c1e59a0cb0331a091",
+      "methods": [
+        "Fonts::instance",
+        "GlobalToolTip::GlobalToolTip",
+        "GlobalToolTip::paint",
+        "GlobalToolTip::setText",
+        "GlobalToolTip::timerCallback",
+        "Time::currentTimeMillis"
+      ]
+    },
+    {
+      "path": "src/editor_components/graphical_step_sequencer.cpp",
+      "sha256": "3e0e94318e04b774272ee48b64a3bba1896ea20038aba9f272ac1a4ff9cea73a",
+      "methods": [
+        "AffineTransform::scale",
+        "Desktop::getInstance",
+        "GraphicalStepSequencer::GraphicalStepSequencer",
+        "GraphicalStepSequencer::changeStep",
+        "GraphicalStepSequencer::ensureMinSize",
+        "GraphicalStepSequencer::getHoveredStep",
+        "GraphicalStepSequencer::guiChanged",
+        "GraphicalStepSequencer::mouseDown",
+        "GraphicalStepSequencer::mouseDrag",
+        "GraphicalStepSequencer::mouseExit",
+        "GraphicalStepSequencer::mouseMove",
+        "GraphicalStepSequencer::paint",
+        "GraphicalStepSequencer::paintBackground",
+        "GraphicalStepSequencer::resetBackground",
+        "GraphicalStepSequencer::resized",
+        "GraphicalStepSequencer::setNumStepsSlider",
+        "GraphicalStepSequencer::setStepSliders",
+        "GraphicalStepSequencer::showRealtimeFeedback",
+        "GraphicalStepSequencer::sliderValueChanged",
+        "GraphicalStepSequencer::timerCallback",
+        "GraphicalStepSequencer::updateHover",
+        "std::max",
+        "std::min"
+      ]
+    },
+    {
+      "path": "src/editor_components/midi_keyboard.cpp",
+      "sha256": "c2dae2b07baf8f1bbd86a3151795e557ba40e50d3f85e1f4669b4b32045e3823",
+      "methods": [
+        "MidiKeyboard::MidiKeyboard",
+        "MidiKeyboard::drawBlackNote"
+      ]
+    },
+    {
+      "path": "src/editor_components/modulation_button.cpp",
+      "sha256": "edfe5817fa69e82f5c97456efeed09a2ddfbc3d8f0cb746d52e0f6629e9ecbd5",
+      "methods": [
+        "DefaultLookAndFeel::instance",
+        "ModalCallbackFunction::forComponent",
+        "ModulationButton::ModulationButton",
+        "ModulationButton::addDisconnectListener",
+        "ModulationButton::disconnectIndex",
+        "ModulationButton::disconnectModulation",
+        "ModulationButton::mouseDown",
+        "ModulationButton::mouseUp",
+        "PopupMenu::Options",
+        "ToggleButton::mouseDown",
+        "ToggleButton::mouseUp"
+      ]
+    },
+    {
+      "path": "src/editor_components/modulation_highlight.cpp",
+      "sha256": "f336c6917ee91425cd54c62498fec7c503ecfd7cc5a87b95c0ecdbbd216b6645",
+      "methods": [
+        "Component::resized",
+        "ModulationHighlight::ModulationHighlight",
+        "ModulationHighlight::paint",
+        "ModulationHighlight::resized"
+      ]
+    },
+    {
+      "path": "src/editor_components/modulation_meter.cpp",
+      "sha256": "12b9ce12114b032961f549336649f23b988904067006e9275cb4a7577adf1963",
+      "methods": [
+        "ModulationMeter::ModulationMeter",
+        "ModulationMeter::drawKnob",
+        "ModulationMeter::drawSlider",
+        "ModulationMeter::drawTextSlider",
+        "ModulationMeter::fillHorizontalRect",
+        "ModulationMeter::fillVerticalRect",
+        "ModulationMeter::paint",
+        "ModulationMeter::resized",
+        "ModulationMeter::updateDrawing",
+        "ModulationMeter::updateValue",
+        "TextLookAndFeel::instance",
+        "std::min",
+        "utils::clamp",
+        "utils::interpolate"
+      ]
+    },
+    {
+      "path": "src/editor_components/modulation_slider.cpp",
+      "sha256": "846313f2c65fa64d6790cdc28bae2ec3cf9db322a7e9d34333daaafecc133733",
+      "methods": [
+        "DefaultLookAndFeel::instance",
+        "ModalCallbackFunction::forComponent",
+        "ModulationSlider::ModulationSlider",
+        "ModulationSlider::mouseDown",
+        "ModulationSlider::mouseUp",
+        "ModulationSlider::sliderValueChanged",
+        "PopupMenu::Options",
+        "SynthSlider::mouseDown",
+        "SynthSlider::mouseUp"
+      ]
+    },
+    {
+      "path": "src/editor_components/open_gl_background.cpp",
+      "sha256": "dc9d297eceb6fbc845ca8e3847836cdf586566ec4bd0372ea5592b0bf20c7bb4",
+      "methods": [
+        "OpenGLBackground::OpenGLBackground",
+        "OpenGLBackground::bind",
+        "OpenGLBackground::destroy",
+        "OpenGLBackground::disableAttributes",
+        "OpenGLBackground::enableAttributes",
+        "OpenGLBackground::init",
+        "OpenGLBackground::render",
+        "OpenGLBackground::updateBackgroundImage",
+        "OpenGLHelpers::translateFragmentShaderToV3",
+        "OpenGLHelpers::translateVertexShaderToV3",
+        "OpenGLShaderProgram::Attribute",
+        "OpenGLShaderProgram::Uniform",
+        "Shaders::getShader"
+      ]
+    },
+    {
+      "path": "src/editor_components/open_gl_component.cpp",
+      "sha256": "7aa76b4767feb55b5fac9bfcb3e9576008216f479abfa9e4d414435c96c2cbea",
+      "methods": [
+        "OpenGLComponent::setViewPort"
+      ]
+    },
+    {
+      "path": "src/editor_components/open_gl_envelope.cpp",
+      "sha256": "f4bbc116bfe61c69c4632af40cb2f82bb93879f67afa937b9107b8aed5f7619a",
+      "methods": [
+        "AffineTransform::scale",
+        "Desktop::getInstance",
+        "OpenGLEnvelope::OpenGLEnvelope",
+        "OpenGLEnvelope::destroy",
+        "OpenGLEnvelope::drawPosition",
+        "OpenGLEnvelope::getAttackX",
+        "OpenGLEnvelope::getDecayX",
+        "OpenGLEnvelope::getReleaseX",
+        "OpenGLEnvelope::getSustainY",
+        "OpenGLEnvelope::guiChanged",
+        "OpenGLEnvelope::init",
+        "OpenGLEnvelope::mouseDown",
+        "OpenGLEnvelope::mouseDrag",
+        "OpenGLEnvelope::mouseExit",
+        "OpenGLEnvelope::mouseMove",
+        "OpenGLEnvelope::mouseUp",
+        "OpenGLEnvelope::paint",
+        "OpenGLEnvelope::paintBackground",
+        "OpenGLEnvelope::paintPositionImage",
+        "OpenGLEnvelope::render",
+        "OpenGLEnvelope::resetEnvelopeLine",
+        "OpenGLEnvelope::resized",
+        "OpenGLEnvelope::setAttackSlider",
+        "OpenGLEnvelope::setAttackX",
+        "OpenGLEnvelope::setDecaySlider",
+        "OpenGLEnvelope::setDecayX",
+        "OpenGLEnvelope::setReleaseSlider",
+        "OpenGLEnvelope::setReleaseX",
+        "OpenGLEnvelope::setSustainSlider",
+        "OpenGLEnvelope::setSustainY",
+        "OpenGLEnvelope::valuesToPosition",
+        "utils::nextPowerOfTwo"
+      ]
+    },
+    {
+      "path": "src/editor_components/open_gl_modulation_meter.cpp",
+      "sha256": "aeff1289e9e87cc7626bce96f2b859de27cc8372f104b1234be6fd749e704159",
+      "methods": [
+        "Component::setVisible",
+        "OpenGLModulationMeter::OpenGLModulationMeter",
+        "OpenGLModulationMeter::collapseVertices",
+        "OpenGLModulationMeter::paint",
+        "OpenGLModulationMeter::resized",
+        "OpenGLModulationMeter::setVertices",
+        "OpenGLModulationMeter::setVisible",
+        "OpenGLModulationMeter::updateDrawing",
+        "TextLookAndFeel::instance",
+        "std::max",
+        "std::min",
+        "utils::clamp",
+        "utils::interpolate"
+      ]
+    },
+    {
+      "path": "src/editor_components/open_gl_oscilloscope.cpp",
+      "sha256": "d059b67cd85d2aba55690488bf4370237d4e923d33f63c8b1b64799034b2286d",
+      "methods": [
+        "OpenGLHelpers::translateFragmentShaderToV3",
+        "OpenGLHelpers::translateVertexShaderToV3",
+        "OpenGLOscilloscope::OpenGLOscilloscope",
+        "OpenGLOscilloscope::destroy",
+        "OpenGLOscilloscope::drawLines",
+        "OpenGLOscilloscope::init",
+        "OpenGLOscilloscope::paint",
+        "OpenGLOscilloscope::paintBackground",
+        "OpenGLOscilloscope::render",
+        "OpenGLShaderProgram::Attribute",
+        "Shaders::getShader",
+        "utils::interpolate"
+      ]
+    },
+    {
+      "path": "src/editor_components/open_gl_peak_meter.cpp",
+      "sha256": "e91d43a4faa218763712f9434ea3b69b28908dd43c2a0cfaa28f348038772437",
+      "methods": [
+        "OpenGLComponent::resized",
+        "OpenGLHelpers::translateFragmentShaderToV3",
+        "OpenGLHelpers::translateVertexShaderToV3",
+        "OpenGLPeakMeter::OpenGLPeakMeter",
+        "OpenGLPeakMeter::destroy",
+        "OpenGLPeakMeter::init",
+        "OpenGLPeakMeter::paint",
+        "OpenGLPeakMeter::paintBackground",
+        "OpenGLPeakMeter::render",
+        "OpenGLPeakMeter::resized",
+        "OpenGLPeakMeter::updateVertices",
+        "OpenGLShaderProgram::Attribute",
+        "Shaders::getShader",
+        "utils::interpolate"
+      ]
+    },
+    {
+      "path": "src/editor_components/open_gl_wave_viewer.cpp",
+      "sha256": "4459c19a49ee9bf6d03cdcdc7a451f64b0ce3dbb12c4b20e7ab04b196e4128c3",
+      "methods": [
+        "AffineTransform::scale",
+        "Desktop::getInstance",
+        "OpenGLWaveViewer::OpenGLWaveViewer",
+        "OpenGLWaveViewer::destroy",
+        "OpenGLWaveViewer::drawPosition",
+        "OpenGLWaveViewer::drawRandom",
+        "OpenGLWaveViewer::drawSmoothRandom",
+        "OpenGLWaveViewer::getRatio",
+        "OpenGLWaveViewer::guiChanged",
+        "OpenGLWaveViewer::init",
+        "OpenGLWaveViewer::mouseDown",
+        "OpenGLWaveViewer::paint",
+        "OpenGLWaveViewer::paintBackground",
+        "OpenGLWaveViewer::paintPositionImage",
+        "OpenGLWaveViewer::phaseToX",
+        "OpenGLWaveViewer::render",
+        "OpenGLWaveViewer::resetWavePath",
+        "OpenGLWaveViewer::resized",
+        "OpenGLWaveViewer::setAmplitudeSlider",
+        "OpenGLWaveViewer::setWaveSlider",
+        "Wave::wave",
+        "utils::interpolate",
+        "utils::nextPowerOfTwo"
+      ]
+    },
+    {
+      "path": "src/editor_components/oscilloscope.cpp",
+      "sha256": "2c462545f41b4cc02954f2a32c789be66a92a8d2201c7104b7639886d555ae8d",
+      "methods": [
+        "AffineTransform::scale",
+        "Desktop::getInstance",
+        "Oscilloscope::Oscilloscope",
+        "Oscilloscope::paint",
+        "Oscilloscope::paintBackground",
+        "Oscilloscope::resetWavePath",
+        "Oscilloscope::resized",
+        "Oscilloscope::showRealtimeFeedback",
+        "Oscilloscope::timerCallback"
+      ]
+    },
+    {
+      "path": "src/editor_components/patch_selector.cpp",
+      "sha256": "22a88c427d3b30c7d1e03aca3a5842756375e0c28a5180db36338d84391b21e5",
+      "methods": [
+        "BrowserLookAndFeel::instance",
+        "DefaultLookAndFeel::instance",
+        "Fonts::instance",
+        "ModalCallbackFunction::forComponent",
+        "PatchSelector::PatchSelector",
+        "PatchSelector::buttonClicked",
+        "PatchSelector::getBrowseHeight",
+        "PatchSelector::initPatch",
+        "PatchSelector::loadFromFile",
+        "PatchSelector::mouseUp",
+        "PatchSelector::newPatchSelected",
+        "PatchSelector::paint",
+        "PatchSelector::paintBackground",
+        "PatchSelector::resized",
+        "PatchSelector::setModified",
+        "PopupMenu::Options",
+        "SynthSection::paint",
+        "SynthSection::resized"
+      ]
+    },
+    {
+      "path": "src/editor_components/retrigger_selector.cpp",
+      "sha256": "56c7bd2cbfe80a27432cc71b5bc5f7886bc19e1251e49b4e6e0ab7d1757c3ff0",
+      "methods": [
+        "DefaultLookAndFeel::instance",
+        "Fonts::instance",
+        "ModalCallbackFunction::forComponent",
+        "PopupMenu::Options",
+        "RetriggerSelector::RetriggerSelector",
+        "RetriggerSelector::mouseDown",
+        "RetriggerSelector::paint",
+        "RetriggerSelector::resized",
+        "SynthSlider::mouseDown"
+      ]
+    },
+    {
+      "path": "src/editor_components/synth_button.cpp",
+      "sha256": "96b4f84f8bd19c529c768a53c1525de58afd86e7e481d8c60a4e3b9369580408",
+      "methods": [
+        "DefaultLookAndFeel::instance",
+        "ModalCallbackFunction::forComponent",
+        "Parameters::getDetails",
+        "Parameters::isParameter",
+        "PopupMenu::Options",
+        "SynthButton::SynthButton",
+        "SynthButton::addButtonListener",
+        "SynthButton::buttonStateChanged",
+        "SynthButton::getTextFromValue",
+        "SynthButton::handlePopupResult",
+        "SynthButton::mouseDown",
+        "SynthButton::mouseEnter",
+        "SynthButton::mouseUp",
+        "SynthButton::notifyTooltip",
+        "SynthButton::setActive",
+        "ToggleButton::buttonStateChanged",
+        "ToggleButton::mouseDown",
+        "ToggleButton::mouseEnter",
+        "ToggleButton::mouseUp"
+      ]
+    },
+    {
+      "path": "src/editor_components/synth_slider.cpp",
+      "sha256": "89497ecb7c41cba5b836ef58294128a32c7c5d6784277314397dce81285aefd3",
+      "methods": [
+        "DefaultLookAndFeel::instance",
+        "Desktop::getInstance",
+        "ModalCallbackFunction::forComponent",
+        "Parameters::getDetails",
+        "Parameters::isParameter",
+        "PopupMenu::Options",
+        "Slider::mouseDown",
+        "Slider::mouseEnter",
+        "Slider::mouseExit",
+        "Slider::mouseUp",
+        "Slider::resized",
+        "Slider::valueChanged",
+        "SynthSlider::SynthSlider",
+        "SynthSlider::addSliderListener",
+        "SynthSlider::drawRectangularShadow",
+        "SynthSlider::drawRotaryShadow",
+        "SynthSlider::drawShadow",
+        "SynthSlider::flipColoring",
+        "SynthSlider::formatValue",
+        "SynthSlider::getTextFromValue",
+        "SynthSlider::handlePopupResult",
+        "SynthSlider::mouseDown",
+        "SynthSlider::mouseEnter",
+        "SynthSlider::mouseExit",
+        "SynthSlider::mouseUp",
+        "SynthSlider::notifyGuis",
+        "SynthSlider::notifyTooltip",
+        "SynthSlider::resized",
+        "SynthSlider::setActive",
+        "SynthSlider::setBipolar",
+        "SynthSlider::snapValue",
+        "SynthSlider::valueChanged",
+        "TextLookAndFeel::instance",
+        "std::min",
+        "utils::iclamp"
+      ]
+    },
+    {
+      "path": "src/editor_components/tempo_selector.cpp",
+      "sha256": "45fe34217900374734194923c75fe5a83cbfce7a8e9cd606c43c23586c089634",
+      "methods": [
+        "DefaultLookAndFeel::instance",
+        "ModalCallbackFunction::forComponent",
+        "PopupMenu::Options",
+        "SynthSlider::mouseDown",
+        "TempoSelector::TempoSelector",
+        "TempoSelector::mouseDown",
+        "TempoSelector::mouseUp",
+        "TempoSelector::paint",
+        "TempoSelector::resized",
+        "TempoSelector::setFreeSlider",
+        "TempoSelector::setTempoSlider",
+        "TempoSelector::valueChanged"
+      ]
+    },
+    {
+      "path": "src/editor_components/text_selector.cpp",
+      "sha256": "33f9dec051090baf7106dbd8658c98a1d081388c74504cf1a39a82f1ffb09779",
+      "methods": [
+        "DefaultLookAndFeel::instance",
+        "ModalCallbackFunction::forComponent",
+        "PopupMenu::Options",
+        "SynthSlider::mouseDown",
+        "TextSelector::TextSelector",
+        "TextSelector::mouseDown",
+        "TextSelector::mouseUp"
+      ]
+    },
+    {
+      "path": "src/editor_components/text_slider.cpp",
+      "sha256": "a2646af40c9d0e9f1407dce838760153381cb6999a88f027efdc2f2946ca2d5c",
+      "methods": [
+        "Fonts::instance",
+        "SynthSlider::resized",
+        "TextSlider::TextSlider",
+        "TextSlider::mouseDown",
+        "TextSlider::mouseDrag",
+        "TextSlider::mouseEvent",
+        "TextSlider::paint",
+        "TextSlider::resized"
+      ]
+    },
+    {
+      "path": "src/editor_components/wave_selector.cpp",
+      "sha256": "75d05f0a8ea5e3001ed080107df50f3a7f7daf772a3f4efe7e483e50037ec6b6",
+      "methods": [
+        "SynthSlider::resized",
+        "WaveSelector::WaveSelector",
+        "WaveSelector::mouseDown",
+        "WaveSelector::mouseDrag",
+        "WaveSelector::mouseEvent",
+        "WaveSelector::paint",
+        "WaveSelector::resizeDownSaw",
+        "WaveSelector::resizeNoise",
+        "WaveSelector::resizeSin",
+        "WaveSelector::resizeSquare",
+        "WaveSelector::resizeTriangle",
+        "WaveSelector::resizeUpSaw",
+        "WaveSelector::resized"
+      ]
+    },
+    {
+      "path": "src/editor_components/wave_viewer.cpp",
+      "sha256": "76f4f2237e680fc27f35aa3a124e1b21d510a03ec22625c45037b526ac30ed12",
+      "methods": [
+        "AffineTransform::scale",
+        "Desktop::getInstance",
+        "Wave::wave",
+        "WaveViewer::WaveViewer",
+        "WaveViewer::drawRandom",
+        "WaveViewer::drawSmoothRandom",
+        "WaveViewer::getRatio",
+        "WaveViewer::mouseDown",
+        "WaveViewer::paint",
+        "WaveViewer::paintBackground",
+        "WaveViewer::phaseToX",
+        "WaveViewer::resetWavePath",
+        "WaveViewer::resized",
+        "WaveViewer::setAmplitudeSlider",
+        "WaveViewer::setWaveSlider",
+        "WaveViewer::showRealtimeFeedback",
+        "WaveViewer::sliderValueChanged",
+        "WaveViewer::timerCallback",
+        "utils::interpolate"
+      ]
+    },
+    {
+      "path": "src/editor_components/xy_pad.cpp",
+      "sha256": "033de79ee8d65f0f7a17ee69a19b5f4dd6f0cce01f8057d64fea325ef2781a81",
+      "methods": [
+        "AffineTransform::scale",
+        "Desktop::getInstance",
+        "XYPad::XYPad",
+        "XYPad::guiChanged",
+        "XYPad::mouseDown",
+        "XYPad::mouseDrag",
+        "XYPad::mouseUp",
+        "XYPad::paint",
+        "XYPad::paintBackground",
+        "XYPad::resized",
+        "XYPad::setActive",
+        "XYPad::setSlidersFromPosition",
+        "XYPad::setXSlider",
+        "XYPad::setYSlider",
+        "utils::clamp"
+      ]
+    },
+    {
+      "path": "src/editor_sections/about_section.cpp",
+      "sha256": "3129d852be0a580602ac54a428be8c05a867f2aca8777120ccc933c8ac114bfe",
+      "methods": [
+        "AboutSection::AboutSection",
+        "AboutSection::buttonClicked",
+        "AboutSection::getInfoRect",
+        "AboutSection::mouseUp",
+        "AboutSection::paint",
+        "AboutSection::resized",
+        "AboutSection::setGuiSize",
+        "AboutSection::setVisible",
+        "DefaultLookAndFeel::instance",
+        "Desktop::getInstance",
+        "Fonts::instance",
+        "ImageCache::getFromMemory",
+        "LoadSave::saveAnimateWidgets",
+        "LoadSave::saveUpdateCheckConfig",
+        "LoadSave::saveWindowSize",
+        "LoadSave::shouldAnimateWidgets",
+        "LoadSave::shouldCheckForUpdates",
+        "Overlay::setVisible",
+        "TextLookAndFeel::instance"
+      ]
+    },
+    {
+      "path": "src/editor_sections/arp_section.cpp",
+      "sha256": "e2d89c1415f88ab1b68b1d27c89f3e1ede9db0b75314f346f02405c6b4a34008",
+      "methods": [
+        "AffineTransform::rotation",
+        "ArpSection::ArpSection",
+        "ArpSection::paintBackground",
+        "ArpSection::resized",
+        "Fonts::instance",
+        "SynthSection::paintContainer",
+        "SynthSection::resized",
+        "TextLookAndFeel::instance"
+      ]
+    },
+    {
+      "path": "src/editor_sections/bpm_section.cpp",
+      "sha256": "aca5d4108a7d5f69124a356decd52f21cfc7f07b1b5731921299e4c2b97395a5",
+      "methods": [
+        "AffineTransform::rotation",
+        "BpmSection::BpmSection",
+        "BpmSection::paintBackground",
+        "BpmSection::resized",
+        "Fonts::instance",
+        "SynthSection::paintContainer",
+        "SynthSection::resized"
+      ]
+    },
+    {
+      "path": "src/editor_sections/contribute_section.cpp",
+      "sha256": "0847b69b8eae61c56c2706138d0a48949c37384a432bd43b2fe7694dfce6b76d",
+      "methods": [
+        "BrowserLookAndFeel::instance",
+        "ContributeSection::ContributeSection",
+        "ContributeSection::buttonClicked",
+        "ContributeSection::getInfoRect",
+        "ContributeSection::getUrl",
+        "ContributeSection::mouseUp",
+        "ContributeSection::paint",
+        "ContributeSection::resized",
+        "ContributeSection::textEditorFocusGained",
+        "Desktop::getInstance",
+        "Fonts::instance",
+        "ImageCache::getFromMemory",
+        "LoadSave::saveLastAskedForMoney",
+        "LoadSave::saveShouldAskForMoney",
+        "NeverAgainLookAndFeel::instance",
+        "PayLookAndFeel::instance",
+        "URL::addEscapeChars"
+      ]
+    },
+    {
+      "path": "src/editor_sections/delay_section.cpp",
+      "sha256": "bd318f11c244e711bdc905cfaf68554b2c2f924dfc1ba92898ec9a1ad8833445",
+      "methods": [
+        "DelaySection::DelaySection",
+        "DelaySection::paintBackground",
+        "DelaySection::resized",
+        "Fonts::instance",
+        "SynthSection::paintBackground",
+        "SynthSection::resized",
+        "TextLookAndFeel::instance"
+      ]
+    },
+    {
+      "path": "src/editor_sections/delete_section.cpp",
+      "sha256": "78e585bf33e40a760af29d52c5cbf1970dcd17f9ec3a40695b34b023572b0974",
+      "methods": [
+        "DeleteSection::DeleteSection",
+        "DeleteSection::buttonClicked",
+        "DeleteSection::getDeleteRect",
+        "DeleteSection::mouseUp",
+        "DeleteSection::paint",
+        "DeleteSection::resized",
+        "Fonts::instance"
+      ]
+    },
+    {
+      "path": "src/editor_sections/distortion_section.cpp",
+      "sha256": "afe3aebfae2a619dc99b62395bbf9b1c27fea155242fc439cd6e5362bffc8b17",
+      "methods": [
+        "DistortionSection::DistortionSection",
+        "DistortionSection::paintBackground",
+        "DistortionSection::resized",
+        "Fonts::instance",
+        "SynthSection::paintBackground",
+        "SynthSection::resized",
+        "TextLookAndFeel::instance"
+      ]
+    },
+    {
+      "path": "src/editor_sections/dynamic_section.cpp",
+      "sha256": "9a4a1bfca95031aa60b0c51296558b127331c7c9bf479f06726a2c20fe5ab5c6",
+      "methods": [
+        "DynamicSection::DynamicSection",
+        "DynamicSection::paintBackground",
+        "DynamicSection::resized",
+        "Fonts::instance",
+        "SynthSection::resized",
+        "TextLookAndFeel::instance"
+      ]
+    },
+    {
+      "path": "src/editor_sections/envelope_section.cpp",
+      "sha256": "4a4089827fe93131dafe4bc2d50c418afc8ee4f62e48a050b5ed570ef8072f13",
+      "methods": [
+        "EnvelopeSection::EnvelopeSection",
+        "EnvelopeSection::paintBackground",
+        "EnvelopeSection::reset",
+        "EnvelopeSection::resized",
+        "Fonts::instance",
+        "ModulationLookAndFeel::instance",
+        "SynthSection::paintBackground",
+        "SynthSection::reset",
+        "SynthSection::resized"
+      ]
+    },
+    {
+      "path": "src/editor_sections/extra_mod_section.cpp",
+      "sha256": "58c20c5309862ee6129f371f9e46b35f95cd90ee63be95bfe1c2126e1176eb99",
+      "methods": [
+        "ExtraModSection::ExtraModSection",
+        "ExtraModSection::drawTextToRightOfComponent",
+        "ExtraModSection::paintBackground",
+        "ExtraModSection::resized",
+        "Fonts::instance",
+        "ModulationLookAndFeel::instance",
+        "SynthSection::paintBackground",
+        "SynthSection::resized"
+      ]
+    },
+    {
+      "path": "src/editor_sections/feedback_section.cpp",
+      "sha256": "1ab22a64e61e950bddcc5c27a4f8a3a569ca0435a61ad8914e87df7332fc48fe",
+      "methods": [
+        "FeedbackSection::FeedbackSection",
+        "FeedbackSection::paintBackground",
+        "FeedbackSection::resized",
+        "Fonts::instance",
+        "SynthSection::paintBackground",
+        "SynthSection::resized"
+      ]
+    },
+    {
+      "path": "src/editor_sections/filter_section.cpp",
+      "sha256": "f1e6f8832330b92fd712e08f15fb7ca344e07dd6375f3e5a03c5df63a924cdea",
+      "methods": [
+        "FilterSection::FilterSection",
+        "FilterSection::paintBackground",
+        "FilterSection::reset",
+        "FilterSection::resetResponse",
+        "FilterSection::resizeHighPass",
+        "FilterSection::resizeLowPass",
+        "FilterSection::resized",
+        "FilterSection::setActive",
+        "FilterSection::sliderValueChanged",
+        "Fonts::instance",
+        "SynthSection::paintBackground",
+        "SynthSection::reset",
+        "SynthSection::resized",
+        "SynthSection::setActive",
+        "SynthSection::sliderValueChanged"
+      ]
+    },
+    {
+      "path": "src/editor_sections/formant_section.cpp",
+      "sha256": "99c56e6d9f58dc93d0e709ad437646ad5b3d6e9f4e55e711e80726f0ef7bad75",
+      "methods": [
+        "FormantSection::FormantSection",
+        "FormantSection::paintBackground",
+        "FormantSection::resized",
+        "FormantSection::setActive",
+        "SynthSection::paintBackground",
+        "SynthSection::resized",
+        "SynthSection::setActive"
+      ]
+    },
+    {
+      "path": "src/editor_sections/full_interface.cpp",
+      "sha256": "1af933ca8f9beed3b74bcc6e4393d73e1e55ebe8fb045d986747982b9657016c",
+      "methods": [
+        "AffineTransform::scale",
+        "Desktop::getInstance",
+        "FullInterface::FullInterface",
+        "FullInterface::animate",
+        "FullInterface::buttonClicked",
+        "FullInterface::checkBackground",
+        "FullInterface::createModulationSliders",
+        "FullInterface::newOpenGLContextCreated",
+        "FullInterface::notifyFresh",
+        "FullInterface::openGLContextClosing",
+        "FullInterface::paint",
+        "FullInterface::paintBackground",
+        "FullInterface::renderOpenGL",
+        "FullInterface::resized",
+        "FullInterface::setOutputMemory",
+        "FullInterface::setToolTipText",
+        "ImageCache::getFromMemory",
+        "LoadSave::shouldAskForPayment",
+        "SynthSection::animate",
+        "SynthSection::buttonClicked",
+        "SynthSection::resized"
+      ]
+    },
+    {
+      "path": "src/editor_sections/lfo_section.cpp",
+      "sha256": "b53360857c6d83ac642eb1b9e607394fa71cabb92fcbf68e8234b776f30bc39b",
+      "methods": [
+        "Fonts::instance",
+        "LfoSection::LfoSection",
+        "LfoSection::paintBackground",
+        "LfoSection::reset",
+        "LfoSection::resized",
+        "ModulationLookAndFeel::instance",
+        "SynthSection::paintBackground",
+        "SynthSection::reset",
+        "SynthSection::resized",
+        "TextLookAndFeel::instance"
+      ]
+    },
+    {
+      "path": "src/editor_sections/mixer_section.cpp",
+      "sha256": "c5a0beb8836a44ead4ff2232fda10487ca3ecbccd9ac06fea57a1a6000c3167d",
+      "methods": [
+        "Fonts::instance",
+        "MixerSection::MixerSection",
+        "MixerSection::paintBackground",
+        "MixerSection::resized",
+        "SynthSection::paintBackground",
+        "SynthSection::resized"
+      ]
+    },
+    {
+      "path": "src/editor_sections/noise_section.cpp",
+      "sha256": "c662ff232b40b8de2c46892f85258b9aac651efc92b610b6e876e72e16d81660",
+      "methods": [
+        "Fonts::instance",
+        "NoiseSection::NoiseSection",
+        "NoiseSection::paintBackground",
+        "NoiseSection::resized",
+        "SynthSection::paintBackground",
+        "SynthSection::resized"
+      ]
+    },
+    {
+      "path": "src/editor_sections/open_gl_modulation_manager.cpp",
+      "sha256": "a7b8ae06004884169b31f4187ae21faee9e2c6bb0a5d51894d632c08f82915d1",
+      "methods": [
+        "ModulationLookAndFeel::instance",
+        "OpenGLComponent::resized",
+        "OpenGLHelpers::translateFragmentShaderToV3",
+        "OpenGLHelpers::translateVertexShaderToV3",
+        "OpenGLModulationManager::OpenGLModulationManager",
+        "OpenGLModulationManager::buttonClicked",
+        "OpenGLModulationManager::changeModulator",
+        "OpenGLModulationManager::destroy",
+        "OpenGLModulationManager::forgetModulator",
+        "OpenGLModulationManager::hoverEnded",
+        "OpenGLModulationManager::hoverStarted",
+        "OpenGLModulationManager::init",
+        "OpenGLModulationManager::makeModulationsVisible",
+        "OpenGLModulationManager::modulationDisconnected",
+        "OpenGLModulationManager::modulationsChanged",
+        "OpenGLModulationManager::paint",
+        "OpenGLModulationManager::render",
+        "OpenGLModulationManager::reset",
+        "OpenGLModulationManager::resized",
+        "OpenGLModulationManager::setModulationAmount",
+        "OpenGLModulationManager::setSliderValues",
+        "OpenGLModulationManager::sliderValueChanged",
+        "OpenGLShaderProgram::Attribute",
+        "OpenGLShaderProgram::Uniform",
+        "Shaders::getShader"
+      ]
+    },
+    {
+      "path": "src/editor_sections/oscillator_section.cpp",
+      "sha256": "a70735fec82ef44dfce4cae6dd470a3d54ff753b54ab41408875869dbf5c6491",
+      "methods": [
+        "Fonts::instance",
+        "OscillatorSection::OscillatorSection",
+        "OscillatorSection::paintBackground",
+        "OscillatorSection::reset",
+        "OscillatorSection::resized",
+        "SynthSection::paintBackground",
+        "SynthSection::reset",
+        "SynthSection::resized",
+        "TextLookAndFeel::instance"
+      ]
+    },
+    {
+      "path": "src/editor_sections/patch_browser.cpp",
+      "sha256": "db2f194585d96aa2f4673c8af4a2de46b36b1869a2a2aaed94792f63fe030855",
+      "methods": [
+        "Fonts::instance",
+        "JSON::parse",
+        "LoadSave::exportBank",
+        "LoadSave::getAuthor",
+        "LoadSave::getBankDirectory",
+        "LoadSave::getLicense",
+        "LoadSave::importBank",
+        "Overlay::visibilityChanged",
+        "PatchBrowser::PatchBrowser",
+        "PatchBrowser::buttonClicked",
+        "PatchBrowser::externalPatchLoaded",
+        "PatchBrowser::fileDeleted",
+        "PatchBrowser::fileSaved",
+        "PatchBrowser::getBanksWidth",
+        "PatchBrowser::getFoldersWidth",
+        "PatchBrowser::getPatchInfoWidth",
+        "PatchBrowser::getPatchesWidth",
+        "PatchBrowser::getSelectedPatch",
+        "PatchBrowser::isPatchSelected",
+        "PatchBrowser::jumpToPatch",
+        "PatchBrowser::keyPressed",
+        "PatchBrowser::keyStateChanged",
+        "PatchBrowser::loadFromFile",
+        "PatchBrowser::loadNextPatch",
+        "PatchBrowser::loadPrevPatch",
+        "PatchBrowser::mouseUp",
+        "PatchBrowser::paint",
+        "PatchBrowser::resized",
+        "PatchBrowser::scanAll",
+        "PatchBrowser::scanBanks",
+        "PatchBrowser::scanFolders",
+        "PatchBrowser::scanPatches",
+        "PatchBrowser::selectedFilesChanged",
+        "PatchBrowser::setDeleteSection",
+        "PatchBrowser::setPatchInfo",
+        "PatchBrowser::setSaveSection",
+        "PatchBrowser::textEditorEscapeKeyPressed",
+        "PatchBrowser::textEditorTextChanged",
+        "PatchBrowser::visibilityChanged"
+      ]
+    },
+    {
+      "path": "src/editor_sections/reverb_section.cpp",
+      "sha256": "efa8960e52d094fa0fd61f496778042d54efe4fd5aec7dde0bb38a2fb101f0b0",
+      "methods": [
+        "Fonts::instance",
+        "ReverbSection::ReverbSection",
+        "ReverbSection::paintBackground",
+        "ReverbSection::resized",
+        "SynthSection::paintBackground",
+        "SynthSection::resized"
+      ]
+    },
+    {
+      "path": "src/editor_sections/save_section.cpp",
+      "sha256": "0e416d93cc7178055d5a1a2eb6fb3108a5a23083cb971a63617d0aa905ee9711",
+      "methods": [
+        "Fonts::instance",
+        "LoadSave::getBankDirectory",
+        "SaveSection::SaveSection",
+        "SaveSection::buttonClicked",
+        "SaveSection::createNewBank",
+        "SaveSection::createNewFolder",
+        "SaveSection::getSaveRect",
+        "SaveSection::mouseUp",
+        "SaveSection::paint",
+        "SaveSection::rescanBanks",
+        "SaveSection::rescanFolders",
+        "SaveSection::resized",
+        "SaveSection::save",
+        "SaveSection::selectedFilesChanged",
+        "SaveSection::textEditorReturnKeyPressed",
+        "SaveSection::visibilityChanged"
+      ]
+    },
+    {
+      "path": "src/editor_sections/step_sequencer_section.cpp",
+      "sha256": "e75fee597f4b10500c440abef41359abef772a44acd8fae20f97cde04c942b4d",
+      "methods": [
+        "Fonts::instance",
+        "ModulationLookAndFeel::instance",
+        "StepSequencerSection::StepSequencerSection",
+        "StepSequencerSection::animate",
+        "StepSequencerSection::createStepSequencerSliders",
+        "StepSequencerSection::paintBackground",
+        "StepSequencerSection::reset",
+        "StepSequencerSection::resized",
+        "SynthSection::animate",
+        "SynthSection::paintBackground",
+        "SynthSection::reset",
+        "SynthSection::resized",
+        "TextLookAndFeel::instance"
+      ]
+    },
+    {
+      "path": "src/editor_sections/stutter_section.cpp",
+      "sha256": "e5bece93672582135d094375769a52643c97171892786abd5f1e60b1587815f3",
+      "methods": [
+        "Fonts::instance",
+        "StutterSection::StutterSection",
+        "StutterSection::paintBackground",
+        "StutterSection::resized",
+        "SynthSection::paintBackground",
+        "SynthSection::resized",
+        "TextLookAndFeel::instance"
+      ]
+    },
+    {
+      "path": "src/editor_sections/sub_section.cpp",
+      "sha256": "8278b5db2ff73b11cb29531627bf759c14997a0abc206a2247c713932722d450",
+      "methods": [
+        "Fonts::instance",
+        "SubSection::SubSection",
+        "SubSection::paintBackground",
+        "SubSection::reset",
+        "SubSection::resized",
+        "SynthSection::paintBackground",
+        "SynthSection::reset",
+        "SynthSection::resized",
+        "TextLookAndFeel::instance"
+      ]
+    },
+    {
+      "path": "src/editor_sections/synth_section.cpp",
+      "sha256": "dc5fbc51616feb6ef4f007ce26ea780c00bd8f7fadb4aa9593a554da8697972e",
+      "methods": [
+        "Component::resized",
+        "Fonts::instance",
+        "SynthSection::addButton",
+        "SynthSection::addModulationButton",
+        "SynthSection::addOpenGLComponent",
+        "SynthSection::addSlider",
+        "SynthSection::addSubSection",
+        "SynthSection::animate",
+        "SynthSection::buttonClicked",
+        "SynthSection::destroyOpenGLComponents",
+        "SynthSection::drawTextForComponent",
+        "SynthSection::getModButtonWidth",
+        "SynthSection::getSmallKnobSize",
+        "SynthSection::getStandardKnobSize",
+        "SynthSection::getTitleWidth",
+        "SynthSection::guiChanged",
+        "SynthSection::initOpenGLComponents",
+        "SynthSection::paint",
+        "SynthSection::paintBackground",
+        "SynthSection::paintChildBackground",
+        "SynthSection::paintChildrenBackgrounds",
+        "SynthSection::paintContainer",
+        "SynthSection::paintKnobShadows",
+        "SynthSection::paintOpenGLBackground",
+        "SynthSection::renderOpenGLComponents",
+        "SynthSection::reset",
+        "SynthSection::resized",
+        "SynthSection::setActivator",
+        "SynthSection::setActive",
+        "SynthSection::setAllValues",
+        "SynthSection::setSizeRatio",
+        "SynthSection::setValue",
+        "SynthSection::sliderValueChanged"
+      ]
+    },
+    {
+      "path": "src/editor_sections/synthesis_interface.cpp",
+      "sha256": "9947c01a579d8d88e76852e10fb92801e22cb04f64feec82a71755a586a6ac8e",
+      "methods": [
+        "SynthSection::resized",
+        "SynthesisInterface::SynthesisInterface",
+        "SynthesisInterface::paintBackground",
+        "SynthesisInterface::resized"
+      ]
+    },
+    {
+      "path": "src/editor_sections/update_check_section.cpp",
+      "sha256": "320342d01e9247c9313bca612d344d7389c951e3621f941b0d477a32e4539f2f",
+      "methods": [
+        "Fonts::instance",
+        "LoadSave::compareVersionStrings",
+        "LoadSave::shouldCheckForUpdates",
+        "UpdateCheckSection::UpdateCheckSection",
+        "UpdateCheckSection::buttonClicked",
+        "UpdateCheckSection::checkUpdate",
+        "UpdateCheckSection::getUpdateCheckRect",
+        "UpdateCheckSection::mouseUp",
+        "UpdateCheckSection::paint",
+        "UpdateCheckSection::resized",
+        "UpdateMemory::UpdateMemory",
+        "UpdateMemory::getInstance"
+      ]
+    },
+    {
+      "path": "src/editor_sections/voice_section.cpp",
+      "sha256": "05508063990e3c10963f3da1575bdcacfe92f7366271843adaa42d3d96672ea8",
+      "methods": [
+        "Fonts::instance",
+        "SynthSection::resized",
+        "VoiceSection::VoiceSection",
+        "VoiceSection::paintBackground",
+        "VoiceSection::resized"
+      ]
+    },
+    {
+      "path": "src/editor_sections/volume_section.cpp",
+      "sha256": "317505ce21bc44bebdc080f0c5a6ad4131254623799357ddf8c58731799ee313",
+      "methods": [
+        "SynthSection::resized",
+        "VolumeSection::VolumeSection",
+        "VolumeSection::resized"
+      ]
+    },
+    {
+      "path": "src/look_and_feel/browser_look_and_feel.cpp",
+      "sha256": "24dd0f5505c7460b6ce7171512eb6f6cecf28532250a8863942f7e9ac2b90ce9",
+      "methods": [
+        "BrowserLookAndFeel::drawButtonBackground",
+        "BrowserLookAndFeel::drawToggleButton",
+        "BrowserLookAndFeel::getTextButtonFont",
+        "Fonts::instance",
+        "std::min"
+      ]
+    },
+    {
+      "path": "src/look_and_feel/colors.cpp",
+      "sha256": "7cb02be1ea59f41b4449569bc2624527bb601cc59834754dc05b1a96cb391eef",
+      "methods": [
+        "Colors::audio",
+        "Colors::background",
+        "Colors::control_label_text",
+        "Colors::graph_disable",
+        "Colors::graph_fill",
+        "Colors::info_background",
+        "Colors::modulation",
+        "Colors::overlay_screen",
+        "Colors::tab_body",
+        "Colors::tab_heading",
+        "Colors::tab_heading_text"
+      ]
+    },
+    {
+      "path": "src/look_and_feel/default_look_and_feel.cpp",
+      "sha256": "da77d2f193e1e01e6b37a5bc0296cac4c9ed29e831c88bacae726dcc83b3ff99",
+      "methods": [
+        "DefaultLookAndFeel::DefaultLookAndFeel",
+        "DefaultLookAndFeel::drawButtonBackground",
+        "DefaultLookAndFeel::drawButtonText",
+        "DefaultLookAndFeel::drawLinearSlider",
+        "DefaultLookAndFeel::drawLinearSliderThumb",
+        "DefaultLookAndFeel::drawRotarySlider",
+        "DefaultLookAndFeel::drawToggleButton",
+        "DefaultLookAndFeel::fillHorizontalRect",
+        "DefaultLookAndFeel::fillSplitHorizontalRect",
+        "DefaultLookAndFeel::fillSplitVerticalRect",
+        "DefaultLookAndFeel::fillVerticalRect",
+        "DefaultLookAndFeel::getPopupMenuFont",
+        "DefaultLookAndFeel::getSliderPopupFont",
+        "DefaultLookAndFeel::getSliderPopupPlacement",
+        "Fonts::instance",
+        "LookAndFeel_V3::drawLinearSliderThumb",
+        "LookAndFeel_V3::getSliderPopupPlacement",
+        "std::min"
+      ]
+    },
+    {
+      "path": "src/look_and_feel/fonts.cpp",
+      "sha256": "ad909205c9be7b6d5cea4a5ac4a38fe55e66123a9c20dd8e906ab32d23078c01",
+      "methods": [
+        "Fonts::Fonts",
+        "Typeface::createSystemTypefaceFor"
+      ]
+    },
+    {
+      "path": "src/look_and_feel/modulation_look_and_feel.cpp",
+      "sha256": "996cbab14695925bbb75060be8ff1bf85cc1a715f2062733b2405d47dd2309c1",
+      "methods": [
+        "AffineTransform::scale",
+        "Fonts::instance",
+        "ImageCache::getFromMemory",
+        "LookAndFeel_V3::getSliderPopupPlacement",
+        "ModulationLookAndFeel::ModulationLookAndFeel",
+        "ModulationLookAndFeel::drawLinearSlider",
+        "ModulationLookAndFeel::drawLinearSliderThumb",
+        "ModulationLookAndFeel::drawRotarySlider",
+        "ModulationLookAndFeel::drawTextModulation",
+        "ModulationLookAndFeel::drawToggleButton",
+        "ModulationLookAndFeel::getPopupMenuFont",
+        "ModulationLookAndFeel::getSliderPopupFont",
+        "ModulationLookAndFeel::getSliderPopupPlacement",
+        "TextLookAndFeel::instance",
+        "std::min"
+      ]
+    },
+    {
+      "path": "src/look_and_feel/shaders.cpp",
+      "sha256": "1b83f8bb2552fabb2d602b1adb488cb948db09fb4b565b38e70139e70833bb7a",
+      "methods": [
+        "Shaders::getShader"
+      ]
+    },
+    {
+      "path": "src/look_and_feel/text_look_and_feel.cpp",
+      "sha256": "8ff7a3fb4664cc69ddb0579617096ec6ce85df371ef3c49e231b2939ee658e89",
+      "methods": [
+        "Fonts::instance",
+        "TextLookAndFeel::TextLookAndFeel",
+        "TextLookAndFeel::drawRotarySlider",
+        "TextLookAndFeel::drawTickBox",
+        "TextLookAndFeel::drawToggleButton"
+      ]
+    },
+    {
+      "path": "src/synthesis/dc_filter.cpp",
+      "sha256": "278e7fae1718ccf2ca77fd17d406712125be693dabb4fd3b64e5953bdd83e201",
+      "methods": [
+        "DcFilter::DcFilter",
+        "DcFilter::process",
+        "DcFilter::reset"
+      ]
+    },
+    {
+      "path": "src/synthesis/detune_lookup.cpp",
+      "sha256": "efa1f1651829bc9d97e5004d21b82af316f273295874732483c2b55d392a03ab",
+      "methods": []
+    },
+    {
+      "path": "src/synthesis/fixed_point_oscillator.cpp",
+      "sha256": "b34c8cc304d79dfa9d469399ee2e4a9f1ca97656ea992a5536305d52f96b3a9d",
+      "methods": [
+        "FixedPointOscillator::FixedPointOscillator",
+        "FixedPointOscillator::process",
+        "FixedPointWave::getBuffer",
+        "FixedPointWave::interpretWave",
+        "std::min",
+        "utils::clamp",
+        "utils::iclamp",
+        "utils::zeroBuffer"
+      ]
+    },
+    {
+      "path": "src/synthesis/fixed_point_wave.cpp",
+      "sha256": "451c60ab35b7b2003c82f0e3f188b0db03b031c40d1f9de9d1034a0bd456574e",
+      "methods": [
+        "FixedPointWaveLookup::FixedPointWaveLookup",
+        "FixedPointWaveLookup::preprocessDiffs",
+        "FixedPointWaveLookup::preprocessDownSaw",
+        "FixedPointWaveLookup::preprocessPyramid",
+        "FixedPointWaveLookup::preprocessSin",
+        "FixedPointWaveLookup::preprocessSquare",
+        "FixedPointWaveLookup::preprocessStep",
+        "FixedPointWaveLookup::preprocessTriangle",
+        "FixedPointWaveLookup::preprocessUpSaw",
+        "Wave::square",
+        "Wave::triangle",
+        "Wave::upsaw"
+      ]
+    },
+    {
+      "path": "src/synthesis/gate.cpp",
+      "sha256": "500eea4ae19aaed2aeff3f77356f9ac2ae945ca35fe41f522adc842921fb33f9",
+      "methods": [
+        "Gate::Gate",
+        "Gate::destroy",
+        "Gate::process",
+        "Gate::setSource",
+        "Processor::destroy",
+        "utils::iclamp"
+      ]
+    },
+    {
+      "path": "src/synthesis/helm_engine.cpp",
+      "sha256": "8ad1ff5e00d3f54e1a2b6341a204336f47fb4c2d592d0a642d79af5681aa731f",
+      "methods": [
+        "HelmEngine::HelmEngine",
+        "HelmEngine::allNotesOff",
+        "HelmEngine::connectModulation",
+        "HelmEngine::correctToTime",
+        "HelmEngine::disconnectModulation",
+        "HelmEngine::getLastActiveNote",
+        "HelmEngine::getNumActiveVoices",
+        "HelmEngine::getPressedNotes",
+        "HelmEngine::init",
+        "HelmEngine::isModulationActive",
+        "HelmEngine::noteOff",
+        "HelmEngine::noteOn",
+        "HelmEngine::process",
+        "HelmEngine::setAftertouch",
+        "HelmEngine::setBpm",
+        "HelmEngine::setBufferSize",
+        "HelmEngine::setChannelAftertouch",
+        "HelmEngine::setModWheel",
+        "HelmEngine::setPitchWheel",
+        "HelmEngine::setSampleRate",
+        "HelmEngine::sustainOff",
+        "HelmEngine::sustainOn",
+        "HelmModule::correctToTime",
+        "HelmModule::init",
+        "ProcessorRouter::process",
+        "ProcessorRouter::setBufferSize",
+        "ProcessorRouter::setSampleRate",
+        "cr::Clamp",
+        "cr::FrequencyToSamples",
+        "cr::LowerBound",
+        "cr::MagnitudeScale",
+        "cr::Multiply",
+        "cr::SmoothFilter",
+        "std::string"
+      ]
+    },
+    {
+      "path": "src/synthesis/helm_lfo.cpp",
+      "sha256": "fc49eeface085d57b615afe5079908d2992d6cd605783d841d3e8476d27fc386",
+      "methods": [
+        "HelmLfo::HelmLfo",
+        "HelmLfo::correctToTime",
+        "HelmLfo::process",
+        "Wave::wave",
+        "utils::interpolate",
+        "utils::mod"
+      ]
+    },
+    {
+      "path": "src/synthesis/helm_module.cpp",
+      "sha256": "91c8567b81063bb366c55ea94700ded8a46a81bb9f36c42b968feffd1fe2f8c0",
+      "methods": [
+        "HelmModule::HelmModule",
+        "HelmModule::correctToTime",
+        "HelmModule::createBaseControl",
+        "HelmModule::createBaseModControl",
+        "HelmModule::createBaseSwitchControl",
+        "HelmModule::createMonoModControl",
+        "HelmModule::createPolyModControl",
+        "HelmModule::createTempoSyncSwitch",
+        "HelmModule::getControls",
+        "HelmModule::getModulationDestination",
+        "HelmModule::getModulationSource",
+        "HelmModule::getModulationSources",
+        "HelmModule::getModulationSwitch",
+        "HelmModule::getMonoModulationDestination",
+        "HelmModule::getMonoModulationSwitch",
+        "HelmModule::getMonoModulations",
+        "HelmModule::getPolyModulationDestination",
+        "HelmModule::getPolyModulationSwitch",
+        "HelmModule::getPolyModulations",
+        "HelmModule::init",
+        "HelmModule::updateAllModulationSwitches",
+        "Parameters::getDetails",
+        "cr::Add",
+        "cr::ExponentialScale",
+        "cr::Multiply",
+        "cr::Quadratic",
+        "cr::Root",
+        "cr::SmoothValue",
+        "cr::Square",
+        "cr::Value",
+        "cr::VariableAdd"
+      ]
+    },
+    {
+      "path": "src/synthesis/helm_oscillators.cpp",
+      "sha256": "9aea697a5abe71f1e076837dbe4efb675981246333485c4863fb20f9dd82662f",
+      "methods": [
+        "DetuneLookup::detuneLookup",
+        "FixedPointWave::getBuffer",
+        "HelmOscillators::HelmOscillators",
+        "HelmOscillators::computeDetuneRatios",
+        "HelmOscillators::finishVoices",
+        "HelmOscillators::loadBasePhaseInc",
+        "HelmOscillators::prepareBuffers",
+        "HelmOscillators::process",
+        "HelmOscillators::processCrossMod",
+        "HelmOscillators::processInitial",
+        "HelmOscillators::processVoices",
+        "HelmOscillators::reset",
+        "utils::iclamp",
+        "utils::zeroBuffer"
+      ]
+    },
+    {
+      "path": "src/synthesis/helm_voice_handler.cpp",
+      "sha256": "d747983ed08c74be7ac45c863797ec8380fd1355597f93bd6a0a584692ea1553",
+      "methods": [
+        "HelmModule::getPolyModulations",
+        "HelmModule::init",
+        "HelmVoiceHandler::HelmVoiceHandler",
+        "HelmVoiceHandler::createArticulation",
+        "HelmVoiceHandler::createFilter",
+        "HelmVoiceHandler::createModulators",
+        "HelmVoiceHandler::createOscillators",
+        "HelmVoiceHandler::getPolyModulations",
+        "HelmVoiceHandler::init",
+        "HelmVoiceHandler::noteOff",
+        "HelmVoiceHandler::noteOn",
+        "HelmVoiceHandler::process",
+        "HelmVoiceHandler::setModWheel",
+        "HelmVoiceHandler::setPitchWheel",
+        "HelmVoiceHandler::setupPolyModulationReadouts",
+        "HelmVoiceHandler::shouldAccumulate",
+        "VoiceHandler::noteOff",
+        "VoiceHandler::noteOn",
+        "VoiceHandler::process",
+        "VoiceHandler::shouldAccumulate",
+        "cr::Add",
+        "cr::Clamp",
+        "cr::FrequencyToPhase",
+        "cr::FrequencyToSamples",
+        "cr::Interpolate",
+        "cr::MagnitudeScale",
+        "cr::MidiScale",
+        "cr::Multiply",
+        "cr::ResonanceScale",
+        "cr::Value"
+      ]
+    },
+    {
+      "path": "src/synthesis/noise_oscillator.cpp",
+      "sha256": "fb832ba81a1265569ddf45b33055e36a2fcda2264ca45b02b8347733ffdf67fc",
+      "methods": [
+        "NoiseOscillator::NoiseOscillator",
+        "NoiseOscillator::process",
+        "utils::zeroBuffer"
+      ]
+    },
+    {
+      "path": "src/synthesis/peak_meter.cpp",
+      "sha256": "50e5a4684b90901868e14be1113cc26c69889864a3f28e843d32e793e84ec6c8",
+      "methods": [
+        "PeakMeter::PeakMeter",
+        "PeakMeter::process",
+        "utils::max",
+        "utils::peak"
+      ]
+    },
+    {
+      "path": "src/synthesis/resonance_cancel.cpp",
+      "sha256": "ae56e34a3787fae72f8f3c98ef2c2b2d189ea6b23bdc93102602be915f9da3e5",
+      "methods": [
+        "ResonanceCancel::ResonanceCancel",
+        "ResonanceCancel::process"
+      ]
+    },
+    {
+      "path": "src/synthesis/trigger_random.cpp",
+      "sha256": "d19cbf7e3ca2b1512a08582b4466a7c9e984d87fe2f667570351e0c47e21041a",
+      "methods": [
+        "TriggerRandom::TriggerRandom",
+        "TriggerRandom::process"
+      ]
+    },
+    {
+      "path": "src/synthesis/value_switch.cpp",
+      "sha256": "d0f2237ccd47c3e2cdaefc1259d1081bdd09d26915ba36bb639c423056e156a1",
+      "methods": [
+        "Value::destroy",
+        "Value::set",
+        "ValueSwitch::ValueSwitch",
+        "ValueSwitch::destroy",
+        "ValueSwitch::set",
+        "ValueSwitch::setSource",
+        "cr::Value",
+        "utils::iclamp"
+      ]
+    }
+  ]
+}

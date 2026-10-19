@@ -44,6 +44,9 @@ class OpenGLEnvelope : public OpenGLComponent, public SynthSlider::SliderListene
     void mouseDrag(const MouseEvent& e) override;
     void mouseUp(const MouseEvent& e) override;
 
+#if JUCE_WASM
+    void paint(Graphics& g) override;
+#endif
     void init(OpenGLContext& open_gl_context) override;
     void render(OpenGLContext& open_gl_context, bool animate = true) override;
     void destroy(OpenGLContext& open_gl_context) override;

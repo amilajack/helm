@@ -26,6 +26,9 @@ class OpenGLComponent : public Component {
     virtual ~OpenGLComponent() { }
 
     void paint(Graphics& g) override { }
+#if JUCE_WASM
+    void setBrowserAnimation(bool enabled) { browser_animate_ = enabled; }
+#endif
 
     virtual void init(OpenGLContext& open_gl_context) = 0;
     virtual void render(OpenGLContext& open_gl_context, bool animate = true) = 0;
@@ -33,6 +36,9 @@ class OpenGLComponent : public Component {
     virtual void paintBackground(Graphics& g) = 0;
 
   protected:
+#if JUCE_WASM
+    bool browser_animate_ = true;
+#endif
     void setViewPort(OpenGLContext& open_gl_context);
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OpenGLComponent)

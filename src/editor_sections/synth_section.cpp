@@ -228,6 +228,9 @@ void SynthSection::setActive(bool active) {
 }
 
 void SynthSection::animate(bool animate) {
+#if JUCE_WASM
+  for (auto* component : open_gl_components_) component->setBrowserAnimation(animate);
+#endif
   for (auto& sub_section : sub_sections_)
     sub_section.second->animate(animate);
 }

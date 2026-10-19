@@ -46,6 +46,11 @@ namespace {
 } // namespace
 
 void Startup::doStartupChecks(MidiManager* midi_manager, mopo::StringLayout* layout) {
+#if JUCE_WASM
+  LoadSave::getUserBankDirectory();
+  LoadSave::loadConfig(midi_manager, layout);
+  return;
+#endif
   if (!LoadSave::isInstalled())
     return;
 

@@ -29,7 +29,11 @@
 
 
 UpdateMemory::UpdateMemory() {
+#if JUCE_WASM
+  needs_check_ = false;
+#else
   needs_check_ = LoadSave::shouldCheckForUpdates();
+#endif
 }
 
 UpdateMemory::~UpdateMemory() {

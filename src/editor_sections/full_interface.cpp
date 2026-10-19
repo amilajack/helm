@@ -125,7 +125,11 @@ FullInterface::~FullInterface() {
   volume_section_ = nullptr;
 }
 
-void FullInterface::paint(Graphics& g) { }
+void FullInterface::paint(Graphics& g) {
+#if JUCE_WASM
+  paintBackground(g);
+#endif
+}
 
 void FullInterface::paintBackground(Graphics& g) {
   static const DropShadow shadow(Colour(0xcc000000), 3, Point<int>(0, 1));

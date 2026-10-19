@@ -352,6 +352,9 @@ String LoadSave::getLicense(var state) {
 }
 
 File LoadSave::getConfigFile() {
+#if JUCE_WASM
+  return File("/user/helm.config");
+#endif
   PropertiesFile::Options config_options;
   config_options.applicationName = "Helm";
   config_options.osxLibrarySubFolder = "Application Support";
@@ -696,6 +699,9 @@ std::pair<wchar_t, wchar_t> LoadSave::getComputerKeyboardOctaveControls() {
 }
 
 File LoadSave::getFactoryBankDirectory() {
+#if JUCE_WASM
+  return File("/factory");
+#endif
   File patch_dir = File("");
 #ifdef LINUX
   patch_dir = File(LINUX_FACTORY_PATCH_DIRECTORY);
@@ -718,6 +724,9 @@ File LoadSave::getFactoryBankDirectory() {
 }
 
 File LoadSave::getBankDirectory() {
+#if JUCE_WASM
+  return File("/user/patches");
+#endif
   if (!isInstalled())
     return File("../../../patches");
 
@@ -757,6 +766,7 @@ File LoadSave::getDidPayInitiallyFile() {
   return bank_dir.getChildFile(DID_PAY_FILE);
 }
 
+#if !JUCE_WASM
 void LoadSave::exportBank(String bank_name) {
   File banks_dir = getBankDirectory();
   File bank = banks_dir.getChildFile(bank_name);
@@ -784,6 +794,8 @@ void LoadSave::importBank() {
     zip_file.uncompressTo(getBankDirectory());
   }
 }
+
+#endif
 
 int LoadSave::compareVersionStrings(String a, String b) {
   a.trim();

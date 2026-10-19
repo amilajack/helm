@@ -20,6 +20,9 @@
 #include "startup.h"
 #include "synth_gui_interface.h"
 #include "utils.h"
+#if JUCE_WASM
+#include <emscripten.h>
+#endif
 
 #define OUTPUT_WINDOW_MIN_NOTE 16.0
 
@@ -141,7 +144,11 @@ SynthBase::getDestinationConnections(const std::string& destination) {
 
 mopo::Output* SynthBase::getModSource(const std::string& name) {
   ScopedLock lock(getCriticalSection());
+#if JUCE_WASM
+  return browserOutput(engine_.getModulationSource(name));
+#else
   return engine_.getModulationSource(name);
+#endif
 }
 
 var SynthBase::saveToVar(String author) {
@@ -150,6 +157,9 @@ var SynthBase::saveToVar(String author) {
 }
 
 void SynthBase::loadInitPatch() {
+#if JUCE_WASM
+  EM_ASM({++HelmLibrary.token;});
+#endif
   getCriticalSection().enter();
   LoadSave::initSynth(this, save_info_);
   getCriticalSection().exit();
@@ -162,6 +172,12 @@ void SynthBase::loadFromVar(juce::var state) {
 }
 
 bool SynthBase::loadFromFile(File patch) {
+#if JUCE_WASM
+  if (!EM_ASM_INT({return HelmLibrary.ensure(UTF8ToString($0));}, patch.getFullPathName().toRawUTF8())) return false;
+  extern bool helmValidatePatch(const var&);
+  if (patch.getSize() > 1024 * 1024 || !helmValidatePatch(JSON::parse(patch.loadFileAsString())))
+    return false;
+#endif
   var parsed_json_state;
   if (patch.exists() && JSON::parse(patch.loadFileAsString(), parsed_json_state).wasOk()) {
     active_file_ = patch;
@@ -182,6 +198,14 @@ bool SynthBase::loadFromFile(File patch) {
 }
 
 bool SynthBase::exportToFile() {
+#if JUCE_WASM
+  auto chooser = std::make_shared<FileChooser>("Export Patch", File("/user/patch.helm"), "*.helm");
+  chooser->launchAsync(FileBrowserComponent::saveMode | FileBrowserComponent::canSelectFiles,
+    [this, chooser](const FileChooser& result) {
+      if (result.getResult() != File()) saveToFile(result.getResult());
+    });
+  return true;
+#else
   File active_file = getActiveFile();
   FileChooser save_box("Export Patch", File(), String("*.") + mopo::PATCH_EXTENSION);
   if (!save_box.browseForFileToSave(true))
@@ -189,9 +213,26 @@ bool SynthBase::exportToFile() {
 
   saveToFile(save_box.getResult());
   return true;
+#endif
 }
 
 bool SynthBase::saveToFile(File patch) {
+#if JUCE_WASM
+  patch = patch.withFileExtension(mopo::PATCH_EXTENSION);
+  processControlChanges();
+  processModulationChanges();
+  auto info = save_info_;
+  info["folder_name"] = patch.getParentDirectory().getFileNameWithoutExtension();
+  info["patch_name"] = patch.getFileNameWithoutExtension();
+  if (!patch.replaceWithText(JSON::toString(LoadSave::stateToVar(this, info, getCriticalSection())))) {
+    EM_ASM({HelmBrowser.reportFile("Unable to save patch. Current edits retained.");});
+    return false;
+  }
+  save_info_ = std::move(info);
+  active_file_ = patch;
+  if (auto* gui = getGuiInterface()) { gui->updateFullGui(); gui->notifyFresh(); }
+  return true;
+#else
   if (patch.getFileExtension() != String(mopo::PATCH_EXTENSION))
     patch = patch.withFileExtension(String(mopo::PATCH_EXTENSION));
 
@@ -210,6 +251,7 @@ bool SynthBase::saveToFile(File patch) {
     return true;
   }
   return false;
+#endif
 }
 
 bool SynthBase::saveToActiveFile() {
@@ -374,3 +416,21 @@ void SynthBase::ValueChangedCallback::messageCallback() {
     }
   }
 }
+
+#if JUCE_WASM
+mopo::Output* SynthBase::browserOutput(mopo::Output* output) {
+  if (!output) return nullptr;
+  auto& snapshot = browser_outputs_[output];
+  if (!snapshot) snapshot = std::make_unique<mopo::Output>(output->buffer_size);
+  return snapshot.get();
+}
+mopo::output_map SynthBase::browserOutputs(mopo::output_map outputs) {
+  for (auto& entry : outputs) entry.second = browserOutput(entry.second);
+  return outputs;
+}
+void SynthBase::browserSnapshot() {
+  for (auto& pair : browser_outputs_)
+    std::copy_n(pair.first->buffer, pair.first->buffer_size, pair.second->buffer);
+  std::copy_n(output_memory_, 2 * mopo::MEMORY_RESOLUTION, browser_output_memory_);
+}
+#endif

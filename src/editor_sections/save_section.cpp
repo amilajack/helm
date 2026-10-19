@@ -249,7 +249,8 @@ void SaveSection::save() {
 
   File save_file = folder.getChildFile(patch_name);
   parent->getSynth()->setAuthor(author_->getText());
-  parent->getSynth()->saveToFile(save_file);
+  if (!parent->getSynth()->saveToFile(save_file))
+    return;
 
   patch_name_->clear();
   setVisible(false);

@@ -22,11 +22,19 @@
 
 SynthGuiInterface::SynthGuiInterface(SynthBase* synth, bool use_gui) : synth_(synth) {
   if (use_gui) {
+#if JUCE_WASM
+    gui_ = new FullInterface(synth->getControls(),
+                             synth->browserOutputs(synth->getEngine()->getModulationSources()),
+                             synth->browserOutputs(synth->getEngine()->getMonoModulations()),
+                             synth->browserOutputs(synth->getEngine()->getPolyModulations()),
+                             synth->getKeyboardState());
+#else
     gui_ = new FullInterface(synth->getControls(),
                              synth->getEngine()->getModulationSources(),
                              synth->getEngine()->getMonoModulations(),
                              synth->getEngine()->getPolyModulations(),
                              synth->getKeyboardState());
+#endif
   }
 }
 

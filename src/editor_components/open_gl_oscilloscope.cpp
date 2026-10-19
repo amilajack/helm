@@ -20,7 +20,7 @@
 #include "shaders.h"
 #include "utils.h"
 
-#if JUCE_MAJOR_VERSION >= 6
+#if JUCE_MAJOR_VERSION >= 6 && !JUCE_WASM
 using namespace juce::gl;
 #endif
 
@@ -62,6 +62,7 @@ void OpenGLOscilloscope::paintBackground(Graphics& g) {
 }
 
 void OpenGLOscilloscope::init(OpenGLContext& open_gl_context) {
+#if !JUCE_WASM
   open_gl_context.extensions.glGenBuffers(1, &line_buffer_);
   open_gl_context.extensions.glBindBuffer(GL_ARRAY_BUFFER, line_buffer_);
 
@@ -87,9 +88,11 @@ void OpenGLOscilloscope::init(OpenGLContext& open_gl_context) {
     shader_->use();
     position_ = new OpenGLShaderProgram::Attribute(*shader_, "position");
   }
+#endif
 }
 
 void OpenGLOscilloscope::drawLines(OpenGLContext& open_gl_context) {
+#if !JUCE_WASM
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glEnable(GL_LINE_SMOOTH);
   glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
@@ -131,16 +134,35 @@ void OpenGLOscilloscope::drawLines(OpenGLContext& open_gl_context) {
   open_gl_context.extensions.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
   glDisable(GL_LINE_SMOOTH);
   MOPO_ASSERT(glGetError() == GL_NO_ERROR);
+#endif
 }
 
 void OpenGLOscilloscope::render(OpenGLContext& open_gl_context, bool animate) {
+#if !JUCE_WASM
   if (animate)
     drawLines(open_gl_context);
+#endif
 }
 
 void OpenGLOscilloscope::destroy(OpenGLContext& open_gl_context) {
+#if !JUCE_WASM
   shader_ = nullptr;
   position_ = nullptr;
   open_gl_context.extensions.glDeleteBuffers(1, &line_buffer_);
   open_gl_context.extensions.glDeleteBuffers(1, &line_indices_buffer_);
+#endif
 }
+
+#if JUCE_WASM
+void OpenGLOscilloscope::paint(Graphics& g) {
+  if (!browser_animate_ || !output_memory_) return;
+  Path line;
+  for (int i = 0; i < mopo::MEMORY_RESOLUTION; ++i) {
+    float x = float(i) * getWidth() / (mopo::MEMORY_RESOLUTION - 1);
+    float y = (1.f - output_memory_[i]) * getHeight() / 2;
+    if (i == 0) line.startNewSubPath(x, y); else line.lineTo(x, y);
+  }
+  g.setColour(Colour(0xff00e676));
+  g.strokePath(line, PathStrokeType(1.f));
+}
+#endif

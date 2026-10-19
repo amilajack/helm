@@ -1,0 +1,53 @@
+name: Browser WebAssembly
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: macos-15
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - uses: actions/cache@v4
+        with:
+          path: .toolchains
+          key: helm-emsdk-6.0.10-${{ runner.os }}-${{ runner.arch }}
+      - name: Build original editor and DSP for browser
+        run: ./web/scripts/build.sh
+      - name: Review source inventory
+        run: python3 web/scripts/feature-inventory.py
+      - name: Install browser test tools
+        working-directory: web
+        run: |
+          npm ci
+          npx playwright install chrome
+      - name: Browser workflows and real AudioWorklet
+        run: npm --prefix web test
+      - name: Native and Wasm DSP parity
+        shell: bash
+        run: |
+          cmake -S . -B build/dsp-native -DHELM_DSP_PARITY_ONLY=ON -DCMAKE_BUILD_TYPE=Release
+          cmake --build build/dsp-native --parallel 3
+          source .toolchains/emsdk-6.0.10/emsdk_env.sh
+          emcmake cmake -S . -B build/dsp-wasm -DHELM_DSP_PARITY_ONLY=ON -DCMAKE_BUILD_TYPE=Release
+          cmake --build build/dsp-wasm --parallel 3
+          python3 web/scripts/check-parity.py
+      - name: Package versioned static distribution and source
+        run: python3 web/scripts/package-static.py
+      - name: Verify packaged assets, source and live audio
+        run: HELM_TEST_DISTRIBUTION=1 npm --prefix web test
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Helm-browser
+          path: |
+            build/web-dist
+            build/wasm/parity-results.json
+            build/wasm/browser.png

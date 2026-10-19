@@ -66,7 +66,25 @@ OpenGLModulationMeter::OpenGLModulationMeter(const mopo::Output* mono_total,
 
 OpenGLModulationMeter::~OpenGLModulationMeter() { }
 
-void OpenGLModulationMeter::paint(Graphics& g) { }
+void OpenGLModulationMeter::paint(Graphics& g) {
+#if JUCE_WASM
+  if (!modulated_) return;
+  updateDrawing();
+  g.setColour(Colour(0xff00e676));
+  const float lo = std::min(mod_percent_, knob_percent_);
+  const float hi = std::max(mod_percent_, knob_percent_);
+  if (rotary_) {
+    Path arc;
+    arc.addCentredArc(getWidth()/2.f, getHeight()/2.f, getWidth()/2.f-2, getHeight()/2.f-2,
+                     0, (2*lo-1)*SynthSlider::rotary_angle,
+                     (2*hi-1)*SynthSlider::rotary_angle, true);
+    g.strokePath(arc, PathStrokeType(2.f));
+  } else if (destination_->isHorizontal())
+    g.fillRect(lo*getWidth(), getHeight()/2.f-1, (hi-lo)*getWidth(), 2.f);
+  else
+    g.fillRect(getWidth()/2.f-1, (1-hi)*getHeight(), 2.f, (hi-lo)*getHeight());
+#endif
+}
 
 void OpenGLModulationMeter::resized() {
   SynthGuiInterface* parent = findParentComponentOfClass<SynthGuiInterface>();

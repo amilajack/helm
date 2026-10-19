@@ -19,7 +19,7 @@
 #include "common.h"
 #include "shaders.h"
 
-#if JUCE_MAJOR_VERSION >= 6
+#if JUCE_MAJOR_VERSION >= 6 && !JUCE_WASM
 using namespace juce::gl;
 #endif
 
@@ -30,6 +30,7 @@ OpenGLBackground::OpenGLBackground() {
 OpenGLBackground::~OpenGLBackground() { }
 
 void OpenGLBackground::init(OpenGLContext& open_gl_context) {
+#if !JUCE_WASM
   static const float vertices[] = {
     -1.0f, 1.0f, 0.0f, 1.0f,
     -1.0f, -1.0f, 0.0f, 0.0f,
@@ -71,9 +72,11 @@ void OpenGLBackground::init(OpenGLContext& open_gl_context) {
     texture_coordinates_ = new OpenGLShaderProgram::Attribute(*image_shader_, "tex_coord_in");
     texture_uniform_ = new OpenGLShaderProgram::Uniform(*image_shader_, "image");
   }
+#endif
 }
 
 void OpenGLBackground::destroy(OpenGLContext& open_gl_context) {
+#if !JUCE_WASM
   if (background_.getWidth())
     background_.release();
 
@@ -84,15 +87,19 @@ void OpenGLBackground::destroy(OpenGLContext& open_gl_context) {
 
   open_gl_context.extensions.glDeleteBuffers(1, &vertex_buffer_);
   open_gl_context.extensions.glDeleteBuffers(1, &triangle_buffer_);
+#endif
 }
 
 void OpenGLBackground::bind(OpenGLContext& open_gl_context) {
+#if !JUCE_WASM
   open_gl_context.extensions.glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_);
   open_gl_context.extensions.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, triangle_buffer_);
   background_.bind();
+#endif
 }
 
 void OpenGLBackground::enableAttributes(OpenGLContext& open_gl_context) {
+#if !JUCE_WASM
   if (position_ != nullptr) {
     open_gl_context.extensions.glVertexAttribPointer(position_->attributeID, 2, GL_FLOAT,
                                                      GL_FALSE, 4 * sizeof(float), 0);
@@ -104,17 +111,21 @@ void OpenGLBackground::enableAttributes(OpenGLContext& open_gl_context) {
                                                      (GLvoid*)(2 * sizeof(float)));
     open_gl_context.extensions.glEnableVertexAttribArray(texture_coordinates_->attributeID);
   }
+#endif
 }
 
 void OpenGLBackground::disableAttributes(OpenGLContext& open_gl_context) {
+#if !JUCE_WASM
   if (position_ != nullptr)
     open_gl_context.extensions.glDisableVertexAttribArray(position_->attributeID);
 
   if (texture_coordinates_ != nullptr)
     open_gl_context.extensions.glDisableVertexAttribArray(texture_coordinates_->attributeID);
+#endif
 }
 
 void OpenGLBackground::render(OpenGLContext& open_gl_context) {
+#if !JUCE_WASM
   MOPO_ASSERT(glGetError() == GL_NO_ERROR);
 
   if ((new_background_ || background_.getWidth() == 0) && background_image_.getWidth() > 0) {
@@ -153,6 +164,7 @@ void OpenGLBackground::render(OpenGLContext& open_gl_context) {
   open_gl_context.extensions.glBindBuffer(GL_ARRAY_BUFFER, 0);
   open_gl_context.extensions.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
   MOPO_ASSERT(glGetError() == GL_NO_ERROR);
+#endif
 }
 
 void OpenGLBackground::updateBackgroundImage(Image background) {

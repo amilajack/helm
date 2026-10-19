@@ -28,7 +28,7 @@
 MidiManager::MidiManager(SynthBase* synth, MidiKeyboardState* keyboard_state,
                          std::map<std::string, String>* gui_state, Listener* listener) :
     synth_(synth), keyboard_state_(keyboard_state), gui_state_(gui_state),
-    listener_(listener), armed_value_(nullptr) {
+    listener_(listener), current_bank_(-1), current_folder_(-1), current_patch_(-1), armed_value_(nullptr) {
   engine_ = synth_->getEngine();
 }
 
@@ -98,10 +98,15 @@ void MidiManager::removeNextBlockOfMessages(MidiBuffer& buffer, int num_samples)
 void MidiManager::processMidiMessage(const MidiMessage& midi_message, int sample_position) {
   if (midi_message.isProgramChange()) {
     current_patch_ = midi_message.getProgramChangeNumber();
+#if JUCE_WASM
+    synth_->loadFromFile(LoadSave::getPatchFile(current_bank_, current_folder_, current_patch_));
+    return;
+#else
     File patch = LoadSave::loadPatch(current_bank_, current_folder_, current_patch_,
                                      synth_, *gui_state_);
     PatchLoadedCallback* callback = new PatchLoadedCallback(listener_, patch);
     callback->post();
+#endif
     return;
   }
 
