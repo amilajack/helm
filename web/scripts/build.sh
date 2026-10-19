@@ -8,6 +8,12 @@ fi
 version=6.0.10
 sdk="$root/.toolchains/emsdk-$version"
 if [[ ! -d "$sdk/.git" ]]; then
+  # Deployment caches may retain the SDK files while stripping Git metadata.
+  # Recreate only this generated SDK so the pinned revision can be verified.
+  if [[ -e "$sdk" ]]; then
+    echo "Recreating cached Emscripten SDK without Git metadata."
+    rm -rf "$sdk"
+  fi
   git clone --depth 1 --branch "$version" https://github.com/emscripten-core/emsdk.git "$sdk"
 fi
 if [[ $(git -C "$sdk" rev-parse HEAD) != a2b92777574c2feda07994cd4f1079a3dfc151f8 ]]; then
