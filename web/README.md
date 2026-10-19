@@ -96,6 +96,23 @@ inventory with `python3 web/scripts/feature-inventory.py --update`.
 
 ## Static distribution and licensing
 
+### Vercel
+
+Import `amilajack/helm` with the repository root as the Root Directory and
+Framework Preset **Other**. The root `vercel.json` installs CMake/Python when
+needed, builds the pinned Emscripten target, and publishes `build/web-dist`.
+No application secrets or JavaScript dependency installation are required.
+The project supplies isolation headers on every route and immutable caching
+for content-addressed assets. Pushes to the connected production branch deploy
+automatically; other branches receive preview deployments.
+
+When Vercel supplies source files without Git metadata, the build recovers the
+exact deployed commit's Git index so the downloadable corresponding source
+contains the same tracked files. Local toolchains, build outputs, environment
+files and Vercel account metadata are excluded from uploads and source archives.
+
+### Other static hosts
+
 ```sh
 python3 web/scripts/package-static.py
 HELM_TEST_DISTRIBUTION=1 npm --prefix web test

@@ -35,3 +35,6 @@ web/test-results/
 web/playwright-report/
 
 __pycache__/
+
+.vercel/
+.env*
