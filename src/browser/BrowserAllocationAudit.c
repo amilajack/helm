@@ -12,7 +12,12 @@
 // "heap" counters record callback requests the pool could not serve (larger
 // than its largest class, or exhausted); a real-time-safe engine keeps them at
 // zero. "pool" counters record requests the pool served.
+#ifdef __EMSCRIPTEN__
 #include <emscripten.h>
+#else
+// WASI (WCLAP) builds export only the CLAP entry points; keep symbols linkable.
+#define EMSCRIPTEN_KEEPALIVE __attribute__((used))
+#endif
 #include <stdatomic.h>
 #include <stddef.h>
 #include <stdint.h>

@@ -4,8 +4,10 @@ list(FILTER wam_sources INCLUDE REGEX "^(mopo/src/|src/synthesis/|src/common/hel
 list(TRANSFORM wam_sources PREPEND "${CMAKE_SOURCE_DIR}/")
 add_executable(HelmWamDsp ${wam_sources}
   ${CMAKE_SOURCE_DIR}/src/browser/WamDsp.cpp
+  ${CMAKE_SOURCE_DIR}/src/headless/HelmInstrument.cpp
   ${CMAKE_SOURCE_DIR}/src/browser/BrowserAllocationAudit.c)
 target_include_directories(HelmWamDsp PRIVATE ${CMAKE_SOURCE_DIR}/mopo/src
+  ${CMAKE_SOURCE_DIR}/src/headless
   ${CMAKE_SOURCE_DIR}/src/synthesis ${CMAKE_SOURCE_DIR}/src/common)
 target_compile_features(HelmWamDsp PRIVATE cxx_std_17)
 target_link_options(HelmWamDsp PRIVATE --no-entry -sMODULARIZE=1 -sEXPORT_ES6=1

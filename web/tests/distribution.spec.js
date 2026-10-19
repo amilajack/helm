@@ -13,7 +13,8 @@ test('distributed assets and corresponding source match the integrity manifest',
   const names=require('child_process').execFileSync('tar',['-tzf',path.join(directory,'source.tar.gz')],{maxBuffer:16*1024*1024}).toString().split('\n');
   for(const required of ['CMakeLists.txt','src/browser/BrowserAudio.cpp','web/scripts/build.sh','web/scripts/prepare-juce.py',
     'web/feature-review.json','third_party/JUCE9/CMakeLists.txt','third_party/JUCE9/LICENSE.md',
-    'third_party/JUCE9/modules/juce_core/system/juce_TargetPlatform.h','third_party/wam-sdk/src/WamProcessor.js','third_party/wam-api/src/types.d.ts','SOURCE-DISTRIBUTION.json'])expect(names).toContain('helm/'+required);
+    'third_party/JUCE9/modules/juce_core/system/juce_TargetPlatform.h','third_party/wam-sdk/src/WamProcessor.js','third_party/wam-api/src/types.d.ts',
+    'third_party/clap/include/clap/clap.h','third_party/clap/LICENSE','src/clap/HelmClap.cpp','SOURCE-DISTRIBUTION.json'])expect(names).toContain('helm/'+required);
   expect(names.some(name=>/\/(node_modules|\.git|\.toolchains)\//.test(name))).toBe(false);
 });
 test('versioned static site loads its original editor and real audio processor',async({page})=>{
@@ -47,4 +48,13 @@ test('stable WAM entry loads the versioned instrument and original engine',async
     plugin.audioNode.destroy();return {instrument:plugin.descriptor.isInstrument,energy};
   });
   expect(result.instrument).toBe(true);expect(result.energy).toBeGreaterThan(.001);
+});
+
+test('stable WCLAP bundle matches the versioned release and is fetchable cross-origin',async({request})=>{
+  const stable=await request.get('/wclap/Helm.wclap.tar.gz'),versioned=await request.get('/'+version+'/wclap/Helm.wclap.tar.gz');
+  expect(stable.ok()).toBe(true);expect(versioned.ok()).toBe(true);
+  expect(stable.headers()['access-control-allow-origin']).toBe('*');
+  expect(Buffer.compare(await stable.body(),await versioned.body())).toBe(0);
+  const names=require('child_process').execFileSync('tar',['-tzf',path.join(root,'wclap/Helm.wclap.tar.gz')]).toString().split('\n');
+  for(const required of ['module.wasm','COPYING','SOURCE.txt','library/manifest.json'])expect(names).toContain(required);
 });

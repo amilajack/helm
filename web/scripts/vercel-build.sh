@@ -23,4 +23,5 @@ else
   npx --yes pnpm@12.14.0 typecheck
 fi
 HELM_BUILD_JOBS=${HELM_BUILD_JOBS:-2} bash web/scripts/build.sh
+HELM_BUILD_JOBS=${HELM_BUILD_JOBS:-2} bash web/scripts/build-wclap.sh
 python3 web/scripts/package-static.py

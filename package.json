@@ -3,9 +3,12 @@
   "private": true,
   "packageManager": "pnpm@12.14.0",
   "scripts": {
-    "build": "bash web/scripts/build.sh && python3 web/scripts/package-static.py",
+    "build": "bash web/scripts/build.sh && bash web/scripts/build-wclap.sh && python3 web/scripts/package-static.py",
+    "build:wclap": "bash web/scripts/build-wclap.sh",
     "typecheck": "pnpm --dir web typecheck",
     "test:browser": "pnpm --dir web test",
-    "test:distribution": "HELM_TEST_DISTRIBUTION=1 pnpm --dir web test"
+    "test:distribution": "HELM_TEST_DISTRIBUTION=1 pnpm --dir web test",
+    "test:wclap": "node --test web/tests/wclap.test.mjs",
+    "test:wclap-host": "bash web/scripts/fetch-wclap-test-host.sh && HELM_TEST_WCLAP=1 pnpm --dir web test"
   }
 }

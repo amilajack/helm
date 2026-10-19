@@ -6,7 +6,7 @@ root=Path(__file__).resolve().parents[2]
 parser=argparse.ArgumentParser();parser.add_argument('--update',action='store_true');args=parser.parse_args()
 manifest=(root/'cmake/Sources.cmake').read_text()
 common=manifest.split('set(HELM_COMMON_SOURCES',1)[1].split(')',1)[0].split()
-paths=common+[p.relative_to(root).as_posix() for p in (root/'src/browser').iterdir() if p.is_file()]
+paths=common+[p.relative_to(root).as_posix() for folder in ['src/browser','src/headless','src/clap'] for p in (root/folder).iterdir() if p.is_file()]
 entries=[]
 for name in sorted(paths):
     text=(root/name).read_text()

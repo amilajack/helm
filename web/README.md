@@ -109,6 +109,59 @@ also retains its COOP/COEP requirements. The source archive includes unchanged
 SDK/API package source and their license declarations; MPL-covered RingBuffer
 code retains its separate notice and license.
 
+## WCLAP and native CLAP
+
+Helm also builds as a [WCLAP](https://github.com/WebCLAP): a CLAP plugin compiled
+to wasm32 that browser hosts (via `wclap-host-js`) and native hosts (via
+`wclap-bridge`) can load. The same wrapper, `src/clap/HelmClap.cpp`, uses only the
+CLAP C API (headers pinned to **1.2.10**), not JUCE, so it also builds a native
+`Helm.clap`.
+
+```sh
+pnpm install --frozen-lockfile
+./web/scripts/build-wclap.sh   # pinned wasi-sdk 34 → build/wclap/Helm.wclap.tar.gz
+pnpm test:wclap                # ABI, state, resources, and audio parity with the WAM build
+pnpm test:wclap-host           # the WebCLAP browser test host, pinned by commit
+
+cmake -S . -B build/clap-native -DHELM_CLAP_ONLY=ON -DCMAKE_BUILD_TYPE=Release
+cmake --build build/clap-native && ctest --test-dir build/clap-native
+```
+
+The module is a `wasm32-wasip1` reactor. It exports `clap_entry`, `malloc`,
+`free`, its memory and one growable function table, and imports only
+`wasi_snapshot_preview1`. It needs no threads or SharedArrayBuffer. The bundle
+contains `module.wasm`, the hash-addressed factory library, `COPYING`,
+`CLAP-LICENSE.txt` and `SOURCE.txt`; files sit at the archive root. A static
+release serves it at **`/wclap/Helm.wclap.tar.gz`**, a copy of the current
+version, and also at a versioned path. To try it, open
+`https://webclap.github.io/browser-test-host/?module=<bundle URL>`.
+
+- **Engine:** the headless instrument (`src/headless/HelmInstrument.cpp`) is
+  shared with the WAM, so both render identical audio. Notes, MIDI and parameter
+  events are sample-accurate: blocks split at event times into chunks of at most
+  256 frames. Sample rates from 1 kHz to 192 kHz are accepted; mopo's buffers
+  stop at 192 kHz.
+- **Parameters:** all 139 legacy IDs. Each CLAP parameter ID is the FNV-1a hash
+  of the string ID, so IDs stay stable across versions. Value text uses the
+  original display rules.
+- **State:** the same JSON schema v1 as the WAM's `getState`, so saved states
+  move between WAM and CLAP hosts. Legacy `.helm` patches are converted in the
+  GUI, as in the WAM. Invalid state is rejected before it changes the instrument.
+- **GUI:** the WAM GUI runs in a `clap.webview/3` (draft) webview. It is compiled
+  into the module and talks to the plugin through JSON messages. Factory
+  presets are read from the bundle's `library/`; only `manifest.json` and
+  64-hex object names are served. Hosts without webview support show their
+  generic parameter UI. This includes native DAWs, because the native `.clap`
+  has no Cocoa window.
+- **Threads:** GUI edits reach the audio thread through a bounded lock-free
+  queue and are reported to the host as parameter and gesture events. Loading a
+  patch takes a lock that the audio thread only tries; if it is busy, that block
+  renders silence instead of waiting.
+
+`clap-validator` 0.4.1 runs in CI against the native plugin. The
+`process-varying-sample-rates` check is excluded because it also requests
+384–768 kHz.
+
 ## Validation
 
 Use installed stable Google Chrome, matching the reference migration:

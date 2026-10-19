@@ -20,7 +20,7 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: .toolchains
-          key: helm-emsdk-6.0.10-${{ runner.os }}-${{ runner.arch }}
+          key: helm-emsdk-6.0.10-wasi-sdk-34-${{ runner.os }}-${{ runner.arch }}
       - name: Install browser test tools
         run: |
           pnpm install --frozen-lockfile
@@ -28,10 +28,31 @@ jobs:
           pnpm --dir web exec playwright install chrome
       - name: Build original editor and DSP for browser
         run: ./web/scripts/build.sh
+      - name: Build WCLAP bundle
+        run: ./web/scripts/build-wclap.sh
       - name: Review source inventory
         run: python3 web/scripts/feature-inventory.py
       - name: Browser workflows and real AudioWorklet
         run: pnpm test:browser
+      - name: WCLAP ABI, state, resources and WAM parity
+        run: pnpm test:wclap
+      - name: WCLAP in the WebCLAP browser host
+        run: pnpm test:wclap-host
+      - name: Native CLAP plugin and clap-validator
+        shell: bash
+        run: |
+          cmake -S . -B build/clap-native -DHELM_CLAP_ONLY=ON -DCMAKE_BUILD_TYPE=Release
+          cmake --build build/clap-native --parallel 3
+          ctest --test-dir build/clap-native --output-on-failure
+          validator=build/clap-validator
+          mkdir -p "$validator"
+          curl -fsSL -o "$validator/validator.zip" https://github.com/free-audio/clap-validator/releases/download/0.4.1/clap-validator-0.4.1-127-g152b982-macos-15-aarch64.zip
+          echo "719a0248ea431718bb7c92c8a0b9a78afa0bb23d692cf452e80973fe8b89282d  $validator/validator.zip" | shasum -a 256 -c
+          unzip -o -q "$validator/validator.zip" -d "$validator"
+          tar -xzf "$validator"/clap-validator-*.tar.gz -C "$validator"
+          # Helm's engine is fixed at <= 192 kHz (mopo MAX_SAMPLE_RATE); activate()
+          # correctly refuses the 384/768 kHz rates this test also tries.
+          "$validator/clap-validator" validate --exclude process-varying-sample-rates build/clap-native/clap/Helm.clap
       - name: Native and Wasm DSP parity
         shell: bash
         run: |
@@ -51,5 +72,7 @@ jobs:
           name: Helm-browser
           path: |
             build/web-dist
+            build/wclap/Helm.wclap.tar.gz
+            build/clap-native/clap/Helm.clap
             build/wasm/parity-results.json
             build/wasm/browser.png

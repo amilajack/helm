@@ -87,7 +87,13 @@ export default class Helm extends WebAudioModule<HelmNode> {
   catch(error){node.destroy();throw error;}
  }
  override async createGui(){
-  const {createGui}=await import('./gui.js');const gui=await createGui(this.audioNode,this.audioContext,(await loadAssets()).metadata,base);this.guis.add(gui);return gui;
+  const {createGui}=await import('./gui.js');const node=this.audioNode,context=this.audioContext;
+  const gui=await createGui({
+   automate:(id,value)=>node.scheduleEvents({type:'wam-automation',time:context.currentTime,data:{id,value,normalized:false}}),
+   midi:bytes=>node.scheduleEvents({type:'wam-midi',time:context.currentTime,data:{bytes:bytes as [number,number,number]}}),
+   getState:()=>node.getState(),setState:state=>node.setState(state),destroyed:()=>node._destroyed,
+  },(await loadAssets()).metadata,{library:new URL('../library/',base),source:new URL('../source.tar.gz',base)});
+  this.guis.add(gui);return gui;
  }
  override destroyGui(gui:HTMLElement){gui.dispatchEvent(new Event('helm-destroy'));gui.remove();this.guis.delete(gui);}
 }

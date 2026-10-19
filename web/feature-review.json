@@ -493,7 +493,7 @@
     },
     {
       "path": "src/browser/BrowserAllocationAudit.c",
-      "sha256": "f712ea435e91eaaef96a89a2c3f239a235517118c547e4aeaf838b16486bedef",
+      "sha256": "9a168815a37bc0d5b47c77e06f9cc0cb8e546166bc480c39aade414a9f63c2a9",
       "methods": []
     },
     {
@@ -728,14 +728,64 @@
     },
     {
       "path": "src/browser/WamDsp.cpp",
-      "sha256": "785dfb5690971ea4c498c232e6edc3a4e294b9091a9d92aa5f6b742938f9d561",
+      "sha256": "da287715636509d564b6d9cab08d49a36b3a648b2375c7c24d75396af95af752",
+      "methods": []
+    },
+    {
+      "path": "src/clap/HelmClap.cpp",
+      "sha256": "afe22c84857a6c415e0d4c1956512ee06bed9fee287e09e0d29c595b071b52b1",
       "methods": [
-        "Parameters::getDetails",
+        "Json::parse",
+        "helm::defaultState",
+        "helm::formatParameter",
+        "helm::jsonNumber",
+        "helm::jsonQuote",
+        "helm::parseState",
+        "helm::stateFromJson",
+        "helm::stateToJson",
+        "std::all_of",
+        "std::clamp",
+        "std::copy",
+        "std::fill",
+        "std::floor",
+        "std::free",
+        "std::isfinite",
+        "std::log2",
+        "std::lround",
+        "std::malloc",
+        "std::max",
+        "std::memset",
+        "std::min",
+        "std::snprintf",
+        "std::sqrt",
+        "std::strcmp",
+        "std::string",
+        "std::strncpy",
+        "std::strtod"
+      ]
+    },
+    {
+      "path": "src/clap/HelmState.cpp",
+      "sha256": "257d17d2607573d202d9ccffe3f8d889ab4bfe7cccf5732950b5b3cd0f703945",
+      "methods": [
+        "Json::find",
+        "Json::parse",
         "std::abs",
         "std::isfinite",
         "std::move",
-        "std::setprecision"
+        "std::snprintf",
+        "std::strtod"
       ]
+    },
+    {
+      "path": "src/clap/HelmState.h",
+      "sha256": "49d1de9e73869f791ad5686109a4834213fb268f74a4bec2629287530d7936ee",
+      "methods": []
+    },
+    {
+      "path": "src/clap/WebviewResources.h",
+      "sha256": "c2d857377a3392ad42726b120faba904751c3e2830f696732719219b257f4915",
+      "methods": []
     },
     {
       "path": "src/common/border_bounds_constrainer.cpp",
@@ -2028,6 +2078,45 @@
         "VolumeSection::VolumeSection",
         "VolumeSection::resized"
       ]
+    },
+    {
+      "path": "src/headless/AllocationStub.cpp",
+      "sha256": "12114ad897804acc0ff76b0f8204a3b4d58ff6044332d09e64b3f24189d7ff09",
+      "methods": []
+    },
+    {
+      "path": "src/headless/HelmInstrument.cpp",
+      "sha256": "651be9a068be49eeee8382653b188dae38fd392129fd64abd5580c3ca6a52f62",
+      "methods": [
+        "Instrument::Instrument",
+        "Instrument::allNotesOff",
+        "Instrument::clearRoutes",
+        "Instrument::get",
+        "Instrument::indexOf",
+        "Instrument::midi",
+        "Instrument::noteOff",
+        "Instrument::noteOn",
+        "Instrument::prepareState",
+        "Instrument::render",
+        "Instrument::route",
+        "Instrument::sampleRate",
+        "Instrument::set",
+        "Instrument::setSampleRate",
+        "Instrument::transport",
+        "Parameters::getDetails",
+        "std::abs",
+        "std::isfinite",
+        "std::min",
+        "std::move",
+        "std::pow",
+        "std::setprecision",
+        "std::sqrt"
+      ]
+    },
+    {
+      "path": "src/headless/HelmInstrument.h",
+      "sha256": "eb4666b370bacf6b92cc6cf5ee7dd31264403e0baab5b321f0ecf290ceec011a",
+      "methods": []
     },
     {
       "path": "src/look_and_feel/browser_look_and_feel.cpp",
