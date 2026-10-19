@@ -7,6 +7,13 @@ add_executable(HelmDspParity ${parity_sources} ${CMAKE_SOURCE_DIR}/tests/dsp_par
 target_include_directories(HelmDspParity PRIVATE ${CMAKE_SOURCE_DIR}/mopo/src
   ${CMAKE_SOURCE_DIR}/src/synthesis ${CMAKE_SOURCE_DIR}/src/common)
 target_compile_features(HelmDspParity PRIVATE cxx_std_17)
+if(NOT EMSCRIPTEN)
+  enable_testing()
+  add_executable(HelmMidiQueueTests ${CMAKE_SOURCE_DIR}/tests/midi_queue.cpp)
+  target_include_directories(HelmMidiQueueTests PRIVATE ${CMAKE_SOURCE_DIR})
+  target_compile_features(HelmMidiQueueTests PRIVATE cxx_std_17)
+  add_test(NAME midi-panic-ordering COMMAND HelmMidiQueueTests)
+endif()
 if(EMSCRIPTEN)
   target_link_options(HelmDspParity PRIVATE -sENVIRONMENT=node -sALLOW_MEMORY_GROWTH=0
     -sINITIAL_MEMORY=268435456 -sSTACK_SIZE=2097152 -sNODERAWFS=1)

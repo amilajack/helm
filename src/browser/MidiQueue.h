@@ -45,6 +45,9 @@ class MidiQueue
     void panic()
     {
         lastFrame = 0;
+        // Discard only messages preceding the panic. A note submitted after
+        // audio resumes must survive even if its first callback is still pending.
+        panicHead.store(head.load(std::memory_order_relaxed), std::memory_order_relaxed);
         panicGeneration.fetch_add(1, std::memory_order_release);
     }
     uint32_t pending() const
@@ -61,7 +64,7 @@ class MidiQueue
         if (generation != consumedPanic)
         {
             consumedPanic = generation;
-            tail.store(head.load(std::memory_order_acquire), std::memory_order_release);
+            tail.store(panicHead.load(std::memory_order_acquire), std::memory_order_release);
             return true;
         }
         auto read = tail.load(std::memory_order_relaxed);
@@ -81,7 +84,7 @@ class MidiQueue
     std::array<Event, capacity> events{};
     alignas(64) std::atomic<uint32_t> head{0};
     alignas(64) std::atomic<uint32_t> tail{0};
-    std::atomic<uint32_t> panicGeneration{0}, overflows{0};
+    std::atomic<uint32_t> panicGeneration{0}, panicHead{0}, overflows{0};
     uint32_t consumedPanic{}; // consumer only
     uint64_t lastFrame{}; // producer only
 };

@@ -708,7 +708,7 @@
     },
     {
       "path": "src/browser/MidiQueue.h",
-      "sha256": "de33bd0489bfae6d30ab13501bc71ba858cf965763c82ddcb5ff5592f34c6124",
+      "sha256": "e77c9602cf6b3b858ad4518dcb94f7275b7fe7950abf121d9096496e58942705",
       "methods": [
         "std::isfinite",
         "std::max"

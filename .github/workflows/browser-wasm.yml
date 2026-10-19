@@ -36,6 +36,7 @@ jobs:
         run: |
           cmake -S . -B build/dsp-native -DHELM_DSP_PARITY_ONLY=ON -DCMAKE_BUILD_TYPE=Release
           cmake --build build/dsp-native --parallel 3
+          ctest --test-dir build/dsp-native --output-on-failure
           source .toolchains/emsdk-6.0.10/emsdk_env.sh
           emcmake cmake -S . -B build/dsp-wasm -DHELM_DSP_PARITY_ONLY=ON -DCMAKE_BUILD_TYPE=Release
           cmake --build build/dsp-wasm --parallel 3
