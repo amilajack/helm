@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 root=$(cd "$(dirname "$0")/../.." && pwd)
+if [[ ! -f "$root/web/node_modules/esbuild/package.json" ]]; then
+  echo 'Run pnpm install --frozen-lockfile before building the browser targets.' >&2
+  exit 1
+fi
 version=6.0.10
 sdk="$root/.toolchains/emsdk-$version"
 if [[ ! -d "$sdk/.git" ]]; then

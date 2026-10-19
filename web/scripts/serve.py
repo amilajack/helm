@@ -10,7 +10,7 @@ args=parser.parse_args()
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self,*a,**kw): super().__init__(*a,directory=args.directory,**kw)
     def end_headers(self):
-        for key,value in {'Cross-Origin-Opener-Policy':'same-origin','Cross-Origin-Embedder-Policy':'require-corp','Cross-Origin-Resource-Policy':'same-origin','Cache-Control':'no-cache'}.items():
+        for key,value in {'Cross-Origin-Opener-Policy':'same-origin','Cross-Origin-Embedder-Policy':'require-corp','Cross-Origin-Resource-Policy':'same-origin','Access-Control-Allow-Origin':'*','Cache-Control':'no-cache'}.items():
             self.send_header(key,value)
         super().end_headers()
 class Server(ThreadingHTTPServer):

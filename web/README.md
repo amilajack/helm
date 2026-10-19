@@ -3,6 +3,8 @@
 This target runs Helm's original C++ engine and JUCE editor. Build and serve:
 
 ```sh
+pnpm install --frozen-lockfile
+pnpm typecheck
 ./web/scripts/build.sh
 python3 web/scripts/serve.py
 # Open http://127.0.0.1:8080/helm.html in Chrome, then Enable audio.
@@ -67,6 +69,46 @@ explicitly requested for this migration. Web MIDI and file picker permissions,
 real audio hardware deadlines, physical IME and screen-reader behavior still
 need device-level checks; headless tests do not establish those results.
 
+## WAM 2 instrument
+
+The build also emits a standard Web Audio Module 2 instrument in `web/wam`.
+After static packaging, a host can import the stable **`/wam/index.js`** URL;
+`/wam/descriptor.json` describes the plugin and `/wam/host.html` opens a small
+example host. The stable entry point forwards to the current version's assets,
+so saved host projects can retain the same plugin URL across deployments.
+
+The adapter uses `@webaudiomodules/sdk` **0.0.12** and API **2.0.0-alpha.6**.
+It implements the WAM constructor, host group/instance identity, parameter
+queries/updates, normalized automation, timestamped MIDI/MPE channel messages,
+transport sync, full state round trips, event connections, GUI lifecycle and
+node destruction. All 139 legacy parameter IDs remain available. Native values
+are preserved, including the small fractional values in historical presets;
+the GUI uses the original step/display hints when editing them.
+
+Each WAM instance owns a separate fixed 128 MiB Wasm heap and the production C++
+engine inside the host's AudioWorklet. It creates no independent AudioContext.
+A 32 MiB pool is reserved before playback; C++ callback allocation counters
+include MIDI/automation and rendering. The SDK itself manages JavaScript event
+scheduling. Events take effect at their WAM processing-slice sample offsets;
+Helm supplies its own control smoothing. Plugin construction, state/routing
+changes and destruction run between callbacks. Unlike the standalone editor,
+this headless WAM target needs neither pthreads nor SharedArrayBuffer, so it can
+also load in non-isolated WAM hosts.
+
+The WAM GUI provides searchable controls, MIDI audition, modulation routes,
+hash-verified factory presets, and `.helm` import/export. The original JUCE
+editor remains available through the standalone browser page. WAM persistence
+belongs to the host's `getState`/`setState` workflow. Incoming MIDI program/bank
+selection, native MIDI-learn maps and SysEx are not exposed by this adapter.
+Legacy `.helm` conversions are checked against the original reader for every
+bundled factory patch. Invalid state is rejected before changing the instrument.
+
+Static hosting must allow cross-origin module/asset fetches. The Vercel config
+and local server supply `Access-Control-Allow-Origin: *`; the standalone page
+also retains its COOP/COEP requirements. The source archive includes unchanged
+SDK/API package source and their license declarations; MPL-covered RingBuffer
+code retains its separate notice and license.
+
 ## Validation
 
 Use installed stable Google Chrome, matching the reference migration:
@@ -88,7 +130,10 @@ python3 web/scripts/check-parity.py
 Browser tests exercise the original GUI, live and offline audio, lifecycle
 recovery, allocation audit, legacy controls, modulation, all factory presets,
 failed downloads, invalid patches, transactional bank import/export, cancellation,
-Unicode editing, accessibility actions, user-file downloads and persistence. `build/wasm/parity-results.json`
+Unicode editing, accessibility actions, user-file downloads and persistence.
+WAM tests additionally cover multiple instances, offline MIDI timing, live
+automation/audio, callback allocations, preset-reader parity, state validation,
+GUI controls and destruction. `build/wasm/parity-results.json`
 records numerical comparison results. A test-only PRNG replaces libc randomness
 in the independent parity renderers; production randomness is unchanged.
 

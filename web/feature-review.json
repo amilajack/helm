@@ -727,6 +727,17 @@
       ]
     },
     {
+      "path": "src/browser/WamDsp.cpp",
+      "sha256": "785dfb5690971ea4c498c232e6edc3a4e294b9091a9d92aa5f6b742938f9d561",
+      "methods": [
+        "Parameters::getDetails",
+        "std::abs",
+        "std::isfinite",
+        "std::move",
+        "std::setprecision"
+      ]
+    },
+    {
       "path": "src/common/border_bounds_constrainer.cpp",
       "sha256": "91fbbbe3cdb8bc49dc73e1eeb25efa22db4832ca33e1ec9e45b5bbcfd92624ed",
       "methods": [

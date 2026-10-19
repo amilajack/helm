@@ -1,6 +1,18 @@
 {
   "name": "@helm/browser",
   "private": true,
-  "scripts": {"test": "playwright test", "typecheck": "tsc --noEmit"},
-  "devDependencies": {"@playwright/test": "1.63.0", "typescript": "7.0.2"}
+  "scripts": {
+    "test": "playwright test",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "^24.19.2",
+    "esbuild": "0.28.2",
+    "typescript": "7.0.2"
+  },
+  "dependencies": {
+    "@webaudiomodules/api": "2.0.0-alpha.6",
+    "@webaudiomodules/sdk": "0.0.12"
+  }
 }

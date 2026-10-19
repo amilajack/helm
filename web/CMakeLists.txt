@@ -16,9 +16,10 @@ execute_process(COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/script
   ${juce_source_SOURCE_DIR} ${overlay} COMMAND_ERROR_IS_FATAL ANY)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-add_compile_options(-pthread -Wno-deprecated-declarations -Wno-inconsistent-missing-override)
-add_link_options(-pthread)
+add_compile_options(-Wno-deprecated-declarations -Wno-inconsistent-missing-override)
 add_library(HelmBrowserJuce STATIC)
+target_compile_options(HelmBrowserJuce PUBLIC -pthread)
+target_link_options(HelmBrowserJuce INTERFACE -pthread)
 foreach(module juce_core juce_events juce_data_structures juce_graphics juce_gui_basics
   juce_audio_basics juce_audio_formats juce_audio_devices juce_audio_processors_headless
   juce_audio_processors juce_audio_utils juce_gui_extra)
@@ -85,3 +86,5 @@ add_custom_target(HelmBrowserFonts
   COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/fallback-fonts.py
     ${CMAKE_BINARY_DIR}/web/fonts-fallback)
 add_dependencies(HelmBrowser HelmBrowserFonts)
+
+add_subdirectory(wam ${CMAKE_BINARY_DIR}/wam)

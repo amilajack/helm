@@ -21,15 +21,15 @@ jobs:
         with:
           path: .toolchains
           key: helm-emsdk-6.0.10-${{ runner.os }}-${{ runner.arch }}
-      - name: Build original editor and DSP for browser
-        run: ./web/scripts/build.sh
-      - name: Review source inventory
-        run: python3 web/scripts/feature-inventory.py
       - name: Install browser test tools
         run: |
           pnpm install --frozen-lockfile
           pnpm typecheck
           pnpm --dir web exec playwright install chrome
+      - name: Build original editor and DSP for browser
+        run: ./web/scripts/build.sh
+      - name: Review source inventory
+        run: python3 web/scripts/feature-inventory.py
       - name: Browser workflows and real AudioWorklet
         run: pnpm test:browser
       - name: Native and Wasm DSP parity

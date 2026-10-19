@@ -1,0 +1,23 @@
+{
+  "identifier": "org.tytel.helm",
+  "name": "Helm",
+  "vendor": "Matt Tytel",
+  "version": "0.9.0",
+  "apiVersion": "2.0.0",
+  "description": "Helm's original C++ synthesizer as a Web Audio Module 2 instrument.",
+  "website": "https://github.com/amilajack/helm",
+  "keywords": ["synthesizer", "instrument", "polyphonic"],
+  "isInstrument": true,
+  "hasAudioInput": false,
+  "hasAudioOutput": true,
+  "hasAutomationInput": true,
+  "hasAutomationOutput": false,
+  "hasMidiInput": true,
+  "hasMidiOutput": false,
+  "hasMpeInput": true,
+  "hasMpeOutput": false,
+  "hasOscInput": false,
+  "hasOscOutput": false,
+  "hasSysexInput": false,
+  "hasSysexOutput": false
+}

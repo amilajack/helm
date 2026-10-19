@@ -16,8 +16,12 @@ if juce is None:
     override=next((line.split('=',1)[1] for line in cache.splitlines() if line.startswith('FETCHCONTENT_SOURCE_DIR_JUCE_SOURCE:')),'')
     juce=Path(override) if override else args.build/'_deps/juce_source-src'
 if not (juce/'modules/juce_core/juce_core.h').is_file():raise SystemExit('Pass --juce pointing to the pinned JUCE source')
+for dependency in ['sdk','api']:
+    if not (root/'web/node_modules/@webaudiomodules'/dependency/'package.json').is_file():
+        raise SystemExit('Install WAM dependencies with pnpm install --frozen-lockfile before packaging')
 files=[p for p in web.iterdir() if p.suffix in ['.html','.js','.wasm']]
 files += [p for folder in ['library','fonts-fallback'] for p in (web/folder).rglob('*') if p.is_file()]
+files += [p for p in (web/'wam').iterdir() if p.is_file() and p.suffix in ['.html','.js','.mjs','.json','.wasm','.txt']]
 if not all((web/name).exists() for name in ['helm.html','helm.js','helm.wasm']):raise SystemExit('Build HelmBrowser first')
 # Source files include uncommitted implementation changes but exclude ignored
 # toolchains/build products. A source snapshot is bundled with every release.
@@ -40,7 +44,11 @@ with source.open('wb') as raw, gzip.GzipFile(filename='',mode='wb',fileobj=raw,m
     for p in sorted(juce.rglob('*')):
         if p.is_file() and '.git' not in p.relative_to(juce).parts:
             archive.add(p,arcname='helm/third_party/JUCE9/'+p.relative_to(juce).as_posix(),filter=normalized)
-    metadata=json.dumps({'sourceSha256':source_digest.hexdigest(),'juce':'3fb5cbc0340758596dac39f7c8de47d562b4896e'}).encode()
+    for dependency in ['sdk','api']:
+        directory=root/'web/node_modules/@webaudiomodules'/dependency
+        for p in sorted(directory.rglob('*')):
+            if p.is_file():archive.add(p,arcname='helm/third_party/wam-'+dependency+'/'+p.relative_to(directory).as_posix(),filter=normalized)
+    metadata=json.dumps({'sourceSha256':source_digest.hexdigest(),'juce':'3fb5cbc0340758596dac39f7c8de47d562b4896e','wamSdk':'0.0.12','wamApi':'2.0.0-alpha.6'}).encode()
     info=tarfile.TarInfo('helm/SOURCE-DISTRIBUTION.json');info.size=len(metadata);archive.addfile(info,io.BytesIO(metadata))
 for name,path in [('Helm-LICENSE.txt',root/'COPYING'),('JUCE-LICENSE.md',juce/'LICENSE.md')]:
     if not path.exists() and name.startswith('Helm'):path=root/'LICENSE'
@@ -53,8 +61,12 @@ html=(destination/'helm.html').read_text().replace('https://github.com/amilajack
 # Recompute the HTML digest after installing its local source-download link.
 manifest['helm.html']=hashlib.sha256((destination/'helm.html').read_bytes()).hexdigest()
 (destination/'integrity.json').write_text(json.dumps({'version':version,'files':manifest},indent=2)+'\n')
+stable=args.output/'wam';stable.mkdir(exist_ok=True)
+(stable/'index.js').write_text(f'export {{ default }} from "../{version}/wam/index.js";\n')
+shutil.copy2(destination/'wam/descriptor.json',stable/'descriptor.json')
+(stable/'host.html').write_text(f'<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=../{version}/wam/host.html"><title>Helm WAM 2</title>\n')
 args.output.joinpath('index.html').write_text(f'<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url={version}/helm.html"><title>Helm</title><a href="{version}/helm.html">Open Helm</a>\n')
-headers={'Cross-Origin-Opener-Policy':'same-origin','Cross-Origin-Embedder-Policy':'require-corp','Cross-Origin-Resource-Policy':'same-origin'}
+headers={'Cross-Origin-Opener-Policy':'same-origin','Cross-Origin-Embedder-Policy':'require-corp','Cross-Origin-Resource-Policy':'same-origin','Access-Control-Allow-Origin':'*'}
 args.output.joinpath('_headers').write_text('/*\n'+''.join(f'  {k}: {v}\n' for k,v in headers.items())+'  Cache-Control: no-cache\n/'+version+'/*\n  Cache-Control: public, max-age=31536000, immutable\n')
 args.output.joinpath('vercel.json').write_text(json.dumps({'headers':[{'source':'/(.*)','headers':[{'key':k,'value':v} for k,v in headers.items()]},{'source':'/'+version+'/(.*)','headers':[{'key':'Cache-Control','value':'public, max-age=31536000, immutable'}]},{'source':'/','headers':[{'key':'Cache-Control','value':'no-cache'}]}]},indent=2)+'\n')
 print(destination)

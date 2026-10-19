@@ -1,0 +1,20 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+import {build} from 'esbuild';
+import {copyFile,writeFile,readFile,mkdir,rm} from 'node:fs/promises';
+import {resolve,dirname} from 'node:path';
+import {pathToFileURL,fileURLToPath} from 'node:url';
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'../..');
+const output=resolve(process.argv[2]||root+'/build/wasm/web/wam');
+await mkdir(output,{recursive:true});
+const {default:createDsp}=await import(pathToFileURL(output+'/dsp.mjs').href);
+const dsp=await createDsp({wasmBinary:await readFile(output+'/dsp.wasm')});
+const synth=dsp._helm_wam_create(48000);if(!synth)throw Error('Cannot initialize Helm WAM DSP');
+await writeFile(output+'/parameters.json',dsp.UTF8ToString(dsp._helm_wam_metadata(synth))+'\n');
+dsp._helm_wam_destroy(synth);
+await build({entryPoints:[root+'/web/wam/index.ts',root+'/web/wam/processor.ts',root+'/web/wam/gui.ts',root+'/web/wam/state.ts',root+'/web/wam/host.ts'],bundle:true,format:'esm',target:'es2022',outdir:output,external:['./dsp.mjs','./gui.js','./index.js'],legalComments:'eof'});
+await copyFile(root+'/web/wam/descriptor.json',output+'/descriptor.json');
+await copyFile(root+'/web/wam/host.html',output+'/host.html');
+await rm(output+'/dsp.js',{force:true});
+const sdk=root+'/web/node_modules/@webaudiomodules/sdk';
+await copyFile(root+'/web/wam/SDK-NOTICE.txt',output+'/WAM-SDK-NOTICE.txt');
+await copyFile(sdk+'/src/RingBuffer_LICENSE.txt',output+'/RingBuffer-LICENSE.txt');
