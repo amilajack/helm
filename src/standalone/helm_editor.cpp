@@ -46,12 +46,18 @@ HelmEditor::HelmEditor(bool use_gui) : SynthGuiInterface(this, use_gui) {
     }
   }
 
+#if JUCE_MAJOR_VERSION >= 6
+  for (const auto& input : MidiInput::getAvailableDevices())
+    deviceManager.setMidiInputDeviceEnabled(input.identifier, true);
+  deviceManager.addMidiInputDeviceCallback("", midi_manager_);
+#else
   const StringArray all_midi_ins(MidiInput::getDevices());
 
   for (int i = 0; i < all_midi_ins.size(); ++i)
     deviceManager.setMidiInputEnabled(all_midi_ins[i], true);
 
   deviceManager.addMidiInputCallback("", midi_manager_);
+#endif
 
   if (use_gui) {
     setLookAndFeel(DefaultLookAndFeel::instance());
@@ -67,6 +73,11 @@ HelmEditor::HelmEditor(bool use_gui) : SynthGuiInterface(this, use_gui) {
 }
 
 HelmEditor::~HelmEditor() {
+#if JUCE_MAJOR_VERSION >= 6
+  deviceManager.removeMidiInputDeviceCallback("", midi_manager_);
+#else
+  deviceManager.removeMidiInputCallback("", midi_manager_);
+#endif
   shutdownAudio();
   midi_manager_ = nullptr;
   computer_keyboard_ = nullptr;
@@ -82,6 +93,7 @@ void HelmEditor::prepareToPlay(int buffer_size, double sample_rate) {
 }
 
 void HelmEditor::getNextAudioBlock(const AudioSourceChannelInfo& buffer) {
+  ScopedNoDenormals no_denormals;
   ScopedLock lock(getCriticalSection());
 
   int num_samples = buffer.buffer->getNumSamples();

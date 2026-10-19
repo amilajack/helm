@@ -21,6 +21,10 @@
 #include "synth_gui_interface.h"
 #include "utils.h"
 
+#if JUCE_MAJOR_VERSION >= 6
+using namespace juce::gl;
+#endif
+
 #define MAX_GAIN 2.0
 
 OpenGLPeakMeter::OpenGLPeakMeter(bool left) : left_(left) {

@@ -20,6 +20,10 @@
 #include "synth_gui_interface.h"
 #include "utils.h"
 
+#if JUCE_MAJOR_VERSION >= 6
+using namespace juce::gl;
+#endif
+
 #define GRID_CELL_WIDTH 8
 #define PADDING 5.0f
 #define MARKER_WIDTH 12.0f
@@ -61,7 +65,7 @@ void OpenGLWaveViewer::paintBackground() {
   if (getWidth() <= 0 || getHeight() <= 0)
     return;
 
-  const Desktop::Displays::Display& display = Desktop::getInstance().getDisplays().getMainDisplay();
+  const auto& display = Desktop::getInstance().getDisplays().getMainDisplay();
   float scale = display.scale;
   background_image_ = Image(Image::ARGB, scale * getWidth(), scale * getHeight(), true);
   Graphics g(background_image_);

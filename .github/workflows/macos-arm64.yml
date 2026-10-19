@@ -1,0 +1,45 @@
+name: macOS Apple Silicon
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: macos-15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - preset: macos-arm64-debug
+            directory: arm64-debug
+            configuration: Debug
+          - preset: macos-arm64-release
+            directory: arm64-release
+            configuration: Release
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify native runner
+        run: test "$(uname -m)" = arm64
+      - name: Configure
+        run: cmake --preset ${{ matrix.preset }}
+      - name: Build bundles and test host
+        run: |
+          cmake --build --preset ${{ matrix.preset }} --parallel 3
+          cmake --build build/${{ matrix.directory }} --target HelmPluginTests --parallel 3
+      - name: Verify bundles
+        run: cmake -DBUILD_DIR=build/${{ matrix.directory }} -DCONFIG=${{ matrix.configuration }} -P cmake/VerifyBundles.cmake
+      - name: Test native plugin loading and audio
+        run: ctest --test-dir build/${{ matrix.directory }} --output-on-failure
+      - name: Package bundles with signatures intact
+        run: |
+          mkdir -p build/package
+          ditto build/${{ matrix.directory }}/HelmPlugin_artefacts/${{ matrix.configuration }}/VST3/Helm.vst3 build/package/Helm.vst3
+          ditto build/${{ matrix.directory }}/HelmPlugin_artefacts/${{ matrix.configuration }}/AU/Helm.component build/package/Helm.component
+          ditto build/${{ matrix.directory }}/HelmStandalone_artefacts/${{ matrix.configuration }}/Helm.app build/package/Helm.app
+          ditto -c -k --keepParent build/package build/Helm-${{ matrix.configuration }}-arm64.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Helm-${{ matrix.configuration }}-arm64
+          path: build/Helm-${{ matrix.configuration }}-arm64.zip

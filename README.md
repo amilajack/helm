@@ -41,9 +41,67 @@ The standalone executable is built to standalone/builds/linux/build and installe
 The LV2 plugin is built to builds/linux/LV2 and installed to /usr/lib/lv2
 The VST plugin is built to builds/linux/VST and installed to /usr/lib/lxvst
 
-#### OSX
-Open /standalone/builds/osx/Helm.xcodeproj for standalone version  
-Open /builds/osx/Helm.xcodeproj for plugin versions
+#### macOS (Apple Silicon)
+
+The CMake build produces native **arm64-only** VST3, Audio Unit, and standalone
+bundles for **macOS 11 or later**. It requires Xcode with its command-line tools,
+CMake 3.22+, Git, and internet access on the first configure. JUCE **9.0.4** is
+fetched at commit `3fb5cbc0340758596dac39f7c8de47d562b4896e`; no separate VST SDK
+or CoreAudio SDK installation is needed.
+
+```bash
+cmake --preset macos-arm64-release
+cmake --build --preset macos-arm64-release --parallel 4
+```
+
+Release outputs:
+
+- `build/arm64-release/HelmPlugin_artefacts/Release/VST3/Helm.vst3`
+- `build/arm64-release/HelmPlugin_artefacts/Release/AU/Helm.component`
+- `build/arm64-release/HelmStandalone_artefacts/Release/Helm.app`
+
+Use `macos-arm64-debug` for Debug builds. Both presets explicitly select arm64;
+Intel and Universal binaries are not part of this build. Factory presets, images,
+and fonts are included. User presets retain their existing location under
+`~/Library/Audio/Presets/Helm`.
+
+Builds are ad-hoc signed for local use and do not install anything automatically.
+To install, copy `Helm.vst3` to `~/Library/Audio/Plug-Ins/VST3`, `Helm.component`
+to `~/Library/Audio/Plug-Ins/Components`, and `Helm.app` to your Applications
+folder. Restart/rescan your native DAW after installation; AU discovery may
+require logging out and back in. Distribution signing, notarization, and an
+installer are not included.
+
+Validation:
+
+```bash
+cmake --build build/arm64-release --target HelmPluginTests --parallel 4
+ctest --test-dir build/arm64-release --output-on-failure
+cmake -DBUILD_DIR=build/arm64-release -DCONFIG=Release -P cmake/VerifyBundles.cmake
+```
+
+The tests load the actual VST3 and AU bundles, check 139 legacy parameter names
+and IDs, restore state and presets, and render MIDI at 44.1/48/96 kHz with mono
+and stereo output and block sizes 1/64/255/256/257/1024. AU tests register the
+factory in the test process, without installing the plugin. CTest isolates
+presets/configuration in the build directory. For editor lifecycle checks, run
+`HelmPluginTests` with the absolute plugin path, absolute
+`tests/legacy-parameters.txt` path, and `--editor`.
+
+For independent validation, run pluginval at strictness level 5 against the VST3
+bundle. After installing and registering the AU, run `auval -v aumu Helm Tyte -strict`.
+The GitHub Actions macOS workflow builds both configurations, runs regression
+tests, verifies architecture/deployment target/signatures, and archives the bundles.
+
+The CMake build is isolated from the old Projucer-generated Windows/Linux projects
+and their vendored JUCE. Shared-source compatibility guards retain those legacy
+build paths; they are not modernized or validated by the macOS workflow.
+
+**Dependency licensing:** Helm's own source retains its existing GPLv3-or-later
+notices. JUCE 9 is dual-licensed under AGPLv3 and the commercial JUCE licence;
+see [JUCE 9's licence](https://github.com/juce-framework/JUCE/blob/9.0.4/LICENSE.md)
+and its bundled dependency notices when distributing this build. The upgrade
+does not select or purchase a commercial licence.
 
 #### Windows
 Open /standalone/builds/vs15/Helm.sln for standalone version  

@@ -23,7 +23,11 @@
 #define MAX_BUFFER_PROCESS 256
 #define SET_PROGRAM_WAIT_MILLISECONDS 500
 
-HelmPlugin::HelmPlugin() {
+HelmPlugin::HelmPlugin()
+#if JUCE_MAJOR_VERSION >= 6
+    : AudioProcessor(BusesProperties().withOutput("Output", AudioChannelSet::stereo(), true))
+#endif
+{
   set_state_time_ = 0;
 
   current_program_ = 0;
@@ -71,6 +75,7 @@ const String HelmPlugin::getName() const {
   return JucePlugin_Name;
 }
 
+#if JUCE_MAJOR_VERSION < 6
 const String HelmPlugin::getInputChannelName(int channel_index) const {
   return String(channel_index + 1);
 }
@@ -86,6 +91,14 @@ bool HelmPlugin::isInputChannelStereoPair(int index) const {
 bool HelmPlugin::isOutputChannelStereoPair(int index) const {
   return true;
 }
+
+#else
+bool HelmPlugin::isBusesLayoutSupported(const BusesLayout& layouts) const {
+  return layouts.getMainInputChannelSet().isDisabled() &&
+      (layouts.getMainOutputChannelSet() == AudioChannelSet::mono() ||
+       layouts.getMainOutputChannelSet() == AudioChannelSet::stereo());
+}
+#endif
 
 bool HelmPlugin::acceptsMidi() const {
 #if JucePlugin_WantsMidiInput
@@ -103,9 +116,11 @@ bool HelmPlugin::producesMidi() const {
 #endif
 }
 
+#if JUCE_MAJOR_VERSION < 6
 bool HelmPlugin::silenceInProducesSilenceOut() const {
   return false;
 }
+#endif
 
 double HelmPlugin::getTailLengthSeconds() const {
   return 0.0;
@@ -163,12 +178,17 @@ void HelmPlugin::releaseResources() {
 void HelmPlugin::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midi_messages) {
   int total_samples = buffer.getNumSamples();
   int num_channels = getTotalNumOutputChannels();
-  getPlayHead()->getCurrentPosition(position_info_);
-  if (position_info_.bpm)
-    engine_.setBpm(position_info_.bpm);
+  ScopedNoDenormals no_denormals;
+  position_info_.resetToDefault();
+  if (auto* play_head = getPlayHead()) {
+    if (play_head->getCurrentPosition(position_info_)) {
+      if (position_info_.bpm > 0.0)
+        engine_.setBpm(position_info_.bpm);
 
-  if (position_info_.isPlaying || position_info_.isLooping || position_info_.isRecording)
-    engine_.correctToTime(position_info_.timeInSamples);
+      if (position_info_.isPlaying || position_info_.isLooping || position_info_.isRecording)
+        engine_.correctToTime(position_info_.timeInSamples);
+    }
+  }
 
   processControlChanges();
   processModulationChanges();

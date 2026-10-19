@@ -46,14 +46,21 @@ class HelmPlugin : public SynthBase, public AudioProcessor, public ValueBridge::
 
     const String getName() const override;
 
+#if JUCE_MAJOR_VERSION < 6
     const String getInputChannelName(int channel_index) const override;
     const String getOutputChannelName(int channel_index) const override;
     bool isInputChannelStereoPair(int index) const override;
     bool isOutputChannelStereoPair(int index) const override;
 
+#else
+    bool isBusesLayoutSupported(const BusesLayout& layouts) const override;
+#endif
+
     bool acceptsMidi() const override;
     bool producesMidi() const override;
+#if JUCE_MAJOR_VERSION < 6
     bool silenceInProducesSilenceOut() const override;
+#endif
     double getTailLengthSeconds() const override;
 
     int getNumPrograms() override;

@@ -19,6 +19,10 @@
 #include "common.h"
 #include "shaders.h"
 
+#if JUCE_MAJOR_VERSION >= 6
+using namespace juce::gl;
+#endif
+
 OpenGLBackground::OpenGLBackground() {
   new_background_ = false;
 }

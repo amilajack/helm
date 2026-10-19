@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {"major": 3, "minor": 22, "patch": 0},
+  "configurePresets": [
+    {"name": "macos-arm64-debug", "generator": "Unix Makefiles", "binaryDir": "${sourceDir}/build/arm64-debug", "cacheVariables": {"CMAKE_BUILD_TYPE": "Debug", "CMAKE_OSX_ARCHITECTURES": "arm64", "CMAKE_OSX_DEPLOYMENT_TARGET": "11.0"}},
+    {"name": "macos-arm64-release", "inherits": "macos-arm64-debug", "binaryDir": "${sourceDir}/build/arm64-release", "cacheVariables": {"CMAKE_BUILD_TYPE": "Release"}}
+  ],
+  "buildPresets": [
+    {"name": "macos-arm64-debug", "configurePreset": "macos-arm64-debug", "targets": ["HelmPlugin_VST3", "HelmPlugin_AU", "HelmStandalone"]},
+    {"name": "macos-arm64-release", "configurePreset": "macos-arm64-release", "targets": ["HelmPlugin_VST3", "HelmPlugin_AU", "HelmStandalone"]}
+  ]
+}

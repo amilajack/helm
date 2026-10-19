@@ -99,7 +99,7 @@ void LoadSave::loadControls(SynthBase* synth,
 void LoadSave::loadModulations(SynthBase* synth,
                                const Array<var>* modulations) {
   synth->clearModulations();
-  var* modulation = modulations->begin();
+  const var* modulation = modulations->begin();
 
   for (; modulation != modulations->end(); ++modulation) {
     DynamicObject* mod = modulation->getDynamicObject();
@@ -173,7 +173,7 @@ void LoadSave::varToState(SynthBase* synth,
     }
 
     // Fix modulation routing.
-    var* modulation = modulations->begin();
+    const var* modulation = modulations->begin();
     Array<var> old_modulations;
     Array<DynamicObject*> new_modulations;
     for (; modulation != modulations->end(); ++modulation) {
@@ -280,7 +280,7 @@ void LoadSave::varToState(SynthBase* synth,
     }
 
     // Move modulating saturation to distortion.
-    var* modulation = modulations->begin();
+    const var* modulation = modulations->begin();
     for (; modulation != modulations->end(); ++modulation) {
       DynamicObject* mod = modulation->getDynamicObject();
       String destination = mod->getProperty("destination").toString();
@@ -700,6 +700,13 @@ File LoadSave::getFactoryBankDirectory() {
 #ifdef LINUX
   patch_dir = File(LINUX_FACTORY_PATCH_DIRECTORY);
 #elif defined(__APPLE__)
+#if JUCE_MAJOR_VERSION >= 6
+  // currentExecutableFile resolves the loaded plugin binary as well as the app.
+  File bundled = File::getSpecialLocation(File::currentExecutableFile)
+      .getParentDirectory().getParentDirectory().getChildFile("Resources/patches");
+  if (bundled.isDirectory())
+    return bundled;
+#endif
   File data_dir = File::getSpecialLocation(File::commonApplicationDataDirectory);
   patch_dir = data_dir.getChildFile(String("Audio/Presets/") + "Helm");
 #elif defined(_WIN32)

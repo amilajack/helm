@@ -25,6 +25,10 @@
 #include "shaders.h"
 #include "synth_gui_interface.h"
 
+#if JUCE_MAJOR_VERSION >= 6
+using namespace juce::gl;
+#endif
+
 #define FLOATS_PER_METER 24
 #define INDICES_PER_METER 6
 #define POINTS_PER_METER 4
